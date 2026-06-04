@@ -1,0 +1,41 @@
+/**
+ * Win95 desktop theme tokens — import in any self-hosted app:
+ *   @import "@/theme/desktop.css";
+ */
+:root {
+  /* Desktop (outside the window) */
+  --desktop-bg: #008080;
+  --taskbar-height: 32px;
+
+  /* Win95 chrome */
+  --chrome-face: #c0c0c0;
+  --chrome-highlight: #ffffff;
+  --chrome-shadow: #808080;
+  --chrome-dark: #000000;
+  --chrome-title-start: #000080;
+  --chrome-title-end: #1084d0;
+  --chrome-title-text: #ffffff;
+
+  /* Page content (muted, like Nightwave Plaza interior) */
+  --content-face: #c0c0c0;
+  --content-panel: #ffffff;
+  --content-text: #000000;
+  --content-muted: #404040;
+  --content-link: #000080;
+  --content-link-hover: #0000ee;
+
+  /* Subtle accents (sparingly — title bar, links) */
+  --accent-violet: #6b4c9a;
+
+  /* Typography — Windows 95 UI Kit font with system fallbacks */
+  --font-win95: "Windows 95", Tahoma, "MS Sans Serif", "Segoe UI", Geneva, sans-serif;
+  --font-ui: var(--font-win95);
+  --font-body: var(--font-win95);
+  --font-display: var(--font-win95);
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+}

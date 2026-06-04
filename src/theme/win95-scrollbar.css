@@ -1,0 +1,87 @@
+/**
+ * Classic Windows 95 scrollbars for in-window content.
+ * WebKit: full arrows + 3D thumb. Firefox: closest fallback via scrollbar-color.
+ */
+
+.win95Scrollbar {
+  scrollbar-width: auto;
+  scrollbar-color: var(--chrome-shadow) var(--chrome-face);
+}
+
+/* Up */
+.win95Scrollbar::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath fill='%23000' d='M4 1 L7 6 H1 Z'/%3E%3C/svg%3E");
+}
+
+/* Down */
+.win95Scrollbar::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath fill='%23000' d='M1 2 H7 L4 7 Z'/%3E%3C/svg%3E");
+}
+
+/* Left */
+.win95Scrollbar::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath fill='%23000' d='M1 4 L6 1 V7 Z'/%3E%3C/svg%3E");
+}
+
+/* Right */
+.win95Scrollbar::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath fill='%23000' d='M2 1 V7 L7 4 Z'/%3E%3C/svg%3E");
+}
+
+.win95Scrollbar::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.win95Scrollbar::-webkit-scrollbar-corner {
+  background: var(--chrome-face);
+}
+
+.win95Scrollbar::-webkit-scrollbar-track {
+  background: var(--chrome-face);
+}
+
+.win95Scrollbar::-webkit-scrollbar-track:vertical {
+  border-left: 1px solid var(--chrome-shadow);
+}
+
+.win95Scrollbar::-webkit-scrollbar-track:horizontal {
+  border-top: 1px solid var(--chrome-shadow);
+}
+
+.win95Scrollbar::-webkit-scrollbar-thumb {
+  background: var(--chrome-face);
+  border: 2px solid;
+  border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-dark)
+    var(--chrome-highlight);
+  box-shadow:
+    inset 1px 1px 0 #dfdfdf,
+    inset -1px -1px 0 var(--chrome-shadow);
+}
+
+.win95Scrollbar::-webkit-scrollbar-thumb:vertical {
+  min-height: 20px;
+}
+
+.win95Scrollbar::-webkit-scrollbar-thumb:horizontal {
+  min-width: 20px;
+}
+
+.win95Scrollbar::-webkit-scrollbar-button {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--chrome-face);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 8px 8px;
+  border: 2px solid;
+  border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-dark)
+    var(--chrome-highlight);
+}
+
+.win95Scrollbar::-webkit-scrollbar-button:active {
+  border-color: var(--chrome-dark) var(--chrome-highlight) var(--chrome-highlight)
+    var(--chrome-dark);
+  background-position: center 1px;
+}

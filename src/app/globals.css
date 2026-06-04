@@ -1,0 +1,96 @@
+@import "../theme/desktop.css";
+@import "../theme/win95-scrollbar.css";
+
+@font-face {
+  font-family: "Windows 95";
+  src: url("/fonts/w-95-sans-serif.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--content-text);
+  background: var(--desktop-bg);
+}
+
+/* Full-viewport teal desktop behind the shell */
+.desktop-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--desktop-bg);
+}
+
+a {
+  color: var(--content-link);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--content-link-hover);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0 0 var(--space-md);
+  color: var(--content-text);
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+h3 {
+  font-size: 0.875rem;
+}
+
+h4 {
+  font-size: 0.8125rem;
+}
+
+p {
+  margin: 0 0 var(--space-md);
+  color: var(--content-text);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+address {
+  font-style: normal;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

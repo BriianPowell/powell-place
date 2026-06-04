@@ -1,0 +1,129 @@
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  min-height: 0;
+  padding: var(--space-md);
+  background: var(--chrome-face);
+  border-right: 2px solid;
+  border-color: var(--chrome-shadow) var(--chrome-highlight) var(--chrome-highlight)
+    var(--chrome-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border: 2px solid;
+  border-color: var(--chrome-shadow) var(--chrome-highlight) var(--chrome-highlight)
+    var(--chrome-shadow);
+  background: var(--content-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--content-muted);
+}
+
+.name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--content-text);
+  margin: 0;
+}
+
+.label {
+  font-size: 0.8125rem;
+  color: var(--content-muted);
+  margin: 0;
+}
+
+.divider {
+  height: 2px;
+  border: none;
+  border-top: 1px solid var(--chrome-shadow);
+  border-bottom: 1px solid var(--chrome-highlight);
+  margin: 0;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.contactItem {
+  font-size: 0.8125rem;
+}
+
+.contactLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--content-text);
+  margin: 0 0 2px;
+}
+
+.contactValue {
+  color: var(--content-text);
+  word-break: break-word;
+}
+
+.contactValue a {
+  color: var(--content-link);
+}
+
+.socialList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding: 0;
+  margin: 0;
+}
+
+.socialList li {
+  display: flex;
+}
+
+.socialLink {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  text-decoration: none;
+  color: var(--content-text);
+  background: var(--chrome-face);
+  border: 1px solid;
+  border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-dark)
+    var(--chrome-highlight);
+}
+
+.socialLink:hover {
+  background: #dfdfdf;
+  color: var(--content-text);
+}
+
+.socialLink:active {
+  border-color: var(--chrome-dark) var(--chrome-highlight) var(--chrome-highlight)
+    var(--chrome-dark);
+}
+
+.sidebar.embedded {
+  width: 100%;
+  max-width: none;
+  border-right: none;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.sidebar.embedded .avatar {
+  width: 64px;
+  height: 64px;
+  font-size: 1.25rem;
+}
+
+.sidebar.embedded .contactList {
+  gap: 6px;
+}
