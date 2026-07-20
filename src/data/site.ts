@@ -41,8 +41,8 @@ export const site = {
     label: 'Huntington Beach, CA',
   },
   bio: {
-    p1: 'I am an Engineer and an unrelenting tinkerer with a passion for solving difficult problems efficiently. My interests tend to lead me towards backend but I have a hard time saying no to a challenge.',
-    p2: 'I like to describe myself as a hard working individual who loves to be apart of a team that fosters growth. My strengths come from my experiences, my previous roles, internships, and university, which have given me a strong foundation from which to move forward.',
+    p1: 'I am an engineer who enjoys designing and building reliable systems, developer-friendly platforms, and automation that helps teams move faster together.',
+    p2: 'I spend a lot of time working across cloud infrastructure, Kubernetes, platform engineering, and software delivery. Lately, I have been exploring practical AI workflows that help engineers work more effectively, improve application resilience, and reduce time-to-market.',
   },
   profiles: [
     {
@@ -63,20 +63,28 @@ export const site = {
   ] satisfies SocialProfile[],
   services: [
     {
-      title: 'Cloud Enablement',
-      text: 'Implementing Terraform, Terragrunt, and AWS CDK to enable high Cloud utilization',
+      title: 'Application & Platform Engineering',
+      text: 'Building end-to-end systems that connect product needs, platform capabilities, and reliable delivery.',
     },
     {
-      title: 'CI/CD',
-      text: 'Embracing the latest CI/CD patterns and technologies to minimize technological debt',
+      title: 'Kubernetes & Cloud Native',
+      text: 'Working with containers, Kubernetes, and cloud infrastructure to run services cleanly and consistently.',
     },
     {
-      title: 'Front End',
-      text: 'Designing and deploying SPA frameworks ontop of serverless architectures',
+      title: 'Developer Experience',
+      text: 'Creating automation, workflows, and internal tooling that make engineering teams more effective.',
     },
     {
-      title: 'Back End',
-      text: 'Architecting and constructing highly efficient systems with minimal infrastructural overhead',
+      title: 'Software Delivery',
+      text: 'Improving CI/CD, infrastructure-as-code, and release patterns to reduce friction and technical debt.',
+    },
+    {
+      title: 'Practical AI Workflows',
+      text: 'Exploring AI-assisted engineering workflows that improve delivery, operations, and code quality.',
+    },
+    {
+      title: 'Resilient Architecture',
+      text: 'Designing backend and distributed systems with reliability, security, and operability in mind.',
     },
   ] satisfies Service[],
   experience: [

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getContactConfig } from '@/lib/contact/config'
 import { sendContactEmail } from '@/lib/contact/resend'
+import { contactMessageSchema, formatZodError } from '@/lib/contact/schema'
 import { verifyTurnstileToken } from '@/lib/contact/turnstile'
 
 type ContactRequestBody = {
@@ -28,14 +29,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
-  const { fullname, email, message, turnstileToken } = body
-  const trimmedFullname = fullname?.trim()
-  const trimmedEmail = email?.trim()
-  const trimmedMessage = message?.trim()
+  const { turnstileToken } = body
+  const parsedMessage = contactMessageSchema.safeParse(body)
 
-  if (!trimmedFullname || !trimmedEmail || !trimmedMessage) {
+  if (!parsedMessage.success) {
     return NextResponse.json(
-      { error: 'All fields are required' },
+      { error: formatZodError(parsedMessage.error) },
       { status: 400 }
     )
   }
@@ -56,9 +55,9 @@ export async function POST(request: Request) {
   }
 
   const delivery = await sendContactEmail(config.resend, {
-    email: trimmedEmail,
-    fullname: trimmedFullname,
-    message: trimmedMessage,
+    email: parsedMessage.data.email,
+    fullname: parsedMessage.data.fullname,
+    message: parsedMessage.data.message,
   })
 
   if (!delivery.ok) {

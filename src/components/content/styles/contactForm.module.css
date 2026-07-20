@@ -57,7 +57,29 @@
 }
 
 .formMessage {
+  composes: win98InsetChromePanel from global;
+  position: relative;
+  align-self: flex-start;
+  max-width: 100%;
+  margin: 0;
+  padding: 7px 10px 7px 26px;
+  font-family: var(--font-ui);
   font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.formMessage::before {
+  position: absolute;
+  left: 8px;
+  top: 7px;
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .formMessageSuccess {
@@ -65,7 +87,17 @@
   font-weight: 700;
 }
 
+.formMessageSuccess::before {
+  content: '✓';
+  color: #008000;
+}
+
 .formMessageError {
   color: #800000;
   font-weight: 700;
+}
+
+.formMessageError::before {
+  content: '!';
+  color: #800000;
 }

@@ -1,11 +1,22 @@
 'use client'
 
 import type { FormEvent } from 'react'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { formatZodError, parseContactFormData } from '@/lib/contact/schema'
 import styles from './styles/contactForm.module.css'
 import { TurnstileWidget } from './TurnstileWidget'
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
+
+const contactMessageSentKey = 'powell-place:contact-message-sent-at'
+
+function hasSentContactMessage() {
+  return Boolean(window.localStorage.getItem(contactMessageSentKey))
+}
+
+function rememberContactMessageSent() {
+  window.localStorage.setItem(contactMessageSentKey, new Date().toISOString())
+}
 
 export function ContactForm() {
   const [state, setState] = useState<FormState>('idle')
@@ -21,8 +32,16 @@ export function ContactForm() {
     setTurnstileResetKey((key) => key + 1)
   }
 
+  useEffect(() => {
+    if (hasSentContactMessage()) {
+      setState('success')
+    }
+  }, [])
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    if (state === 'success') return
 
     if (!turnstileToken) {
       setState('error')
@@ -30,20 +49,27 @@ export function ContactForm() {
       return
     }
 
-    setState('submitting')
-    setErrorMessage('')
-
     const form = event.currentTarget
     const data = new FormData(form)
+    let payload: ReturnType<typeof parseContactFormData>
+
+    try {
+      payload = parseContactFormData(data)
+    } catch (err) {
+      setState('error')
+      setErrorMessage(formatZodError(err))
+      return
+    }
+
+    setState('submitting')
+    setErrorMessage('')
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fullname: data.get('fullname'),
-          email: data.get('email'),
-          message: data.get('message'),
+          ...payload,
           turnstileToken,
         }),
       })
@@ -56,7 +82,7 @@ export function ContactForm() {
       }
 
       setState('success')
-      form.reset()
+      rememberContactMessageSent()
     } catch (err) {
       setState('error')
       setErrorMessage(
@@ -67,13 +93,16 @@ export function ContactForm() {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit} noValidate>
       <div className={styles.fieldRow}>
         <input
           className={styles.input}
           type="text"
           name="fullname"
           placeholder="Full Name"
+          autoComplete="name"
+          minLength={2}
+          maxLength={80}
           required
           disabled={state === 'submitting' || state === 'success'}
         />
@@ -82,6 +111,10 @@ export function ContactForm() {
           type="email"
           name="email"
           placeholder="Email Address"
+          autoComplete="email"
+          inputMode="email"
+          pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
+          maxLength={254}
           required
           disabled={state === 'submitting' || state === 'success'}
         />
@@ -90,6 +123,8 @@ export function ContactForm() {
         className={styles.textarea}
         name="message"
         placeholder="Message"
+        minLength={10}
+        maxLength={2000}
         required
         disabled={state === 'submitting' || state === 'success'}
       />
@@ -113,12 +148,18 @@ export function ContactForm() {
             : 'Send Message'}
       </button>
       {state === 'success' && (
-        <p className={`${styles.formMessage} ${styles.formMessageSuccess}`}>
+        <p
+          className={`${styles.formMessage} ${styles.formMessageSuccess}`}
+          role="status"
+        >
           Message transmitted. I&apos;ll get back to you soon.
         </p>
       )}
       {state === 'error' && (
-        <p className={`${styles.formMessage} ${styles.formMessageError}`}>
+        <p
+          className={`${styles.formMessage} ${styles.formMessageError}`}
+          role="alert"
+        >
           {errorMessage}
         </p>
       )}

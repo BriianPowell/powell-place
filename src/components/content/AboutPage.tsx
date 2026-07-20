@@ -13,7 +13,7 @@ export function AboutPage() {
         <p>{site.bio.p2}</p>
       </section>
       <section className={styles.section}>
-        <h3>What I&apos;m doing</h3>
+        <h3>Focus & Collaboration</h3>
         <ul className={aboutStyles.serviceGrid}>
           {site.services.map((service) => (
             <li key={service.title} className={aboutStyles.serviceCard}>
