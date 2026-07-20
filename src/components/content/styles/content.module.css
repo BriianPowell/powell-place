@@ -1,0 +1,17 @@
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-lg);
+  background: var(--content-panel);
+  color: var(--content-text);
+}
+
+.section {
+  margin-bottom: var(--space-xl);
+}
+
+.timelineMeta {
+  font-size: 0.75rem;
+  color: var(--content-muted);
+  margin: 0;
+}

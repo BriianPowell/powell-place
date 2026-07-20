@@ -1,0 +1,9 @@
+{
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "composes",
+      "description": "CSS Modules composition property. Allows a local class to include declarations from another local class or a global class."
+    }
+  ]
+}

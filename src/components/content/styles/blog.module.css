@@ -1,0 +1,94 @@
+.blogList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.blogCard {
+  composes: win98InsetPanel from global;
+  padding: var(--space-md);
+}
+
+.blogCard h3 {
+  margin-bottom: var(--space-xs);
+}
+
+.blogCard h3 a,
+.backLink {
+  color: var(--content-link);
+  font-weight: 700;
+}
+
+.blogCard p:last-child,
+.blogHeader p:last-child,
+.markdownArticle p:last-child {
+  margin-bottom: 0;
+}
+
+.blogHeader {
+  margin-bottom: var(--space-lg);
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: var(--space-md);
+  font-size: 0.75rem;
+}
+
+.markdownArticle {
+  max-width: 70ch;
+}
+
+.markdownArticle h2,
+.markdownArticle h3,
+.markdownArticle h4 {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.markdownArticle ul,
+.markdownArticle ol {
+  margin: 0 0 var(--space-md);
+  padding-left: 1.25rem;
+  list-style-position: outside;
+}
+
+.markdownArticle ul {
+  list-style: disc;
+}
+
+.markdownArticle ol {
+  list-style: decimal;
+}
+
+.markdownArticle li {
+  margin-bottom: var(--space-xs);
+}
+
+.markdownArticle blockquote {
+  margin: 0 0 var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--chrome-face);
+  border: 2px solid;
+  border-color: var(--chrome-shadow) var(--chrome-highlight)
+    var(--chrome-highlight) var(--chrome-shadow);
+}
+
+.markdownArticle code {
+  font-family: var(--font-ui);
+  background: var(--chrome-face);
+}
+
+.markdownArticle pre {
+  overflow-x: auto;
+  margin: 0 0 var(--space-md);
+  padding: var(--space-md);
+  background: var(--chrome-face);
+  border: 2px solid;
+  border-color: var(--chrome-shadow) var(--chrome-highlight)
+    var(--chrome-highlight) var(--chrome-shadow);
+}
+
+.markdownArticle pre code {
+  background: transparent;
+}

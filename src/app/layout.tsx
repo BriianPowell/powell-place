@@ -1,35 +1,81 @@
-import type { Metadata } from "next";
-import { site } from "@/data/site";
-import { icons } from "@/lib/icons";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { FaviconAnimator } from '@/components/FaviconAnimator'
+import { site } from '@/data/site'
+import { icons } from '@/lib/icons'
+import { getPersonJsonLd, seoKeywords } from '@/lib/seo'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: site.name,
+  title: {
+    default: `${site.name} | ${site.label}`,
+    template: `%s | ${site.name}`,
+  },
   description: site.description,
   metadataBase: new URL(site.website.url),
+  applicationName: `${site.name} Portfolio`,
+  authors: [{ name: site.name, url: site.website.url }],
+  creator: site.name,
+  publisher: site.name,
+  keywords: seoKeywords,
+  alternates: {
+    canonical: '/about',
+  },
   icons: {
     icon: icons.w95,
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
-    title: site.name,
+    title: `${site.name} | ${site.label}`,
     description: site.description,
     url: site.website.url,
     siteName: site.name,
-    type: "profile",
+    locale: 'en_US',
+    type: 'profile',
+    images: [
+      {
+        url: '/icons/w95.png',
+        width: 32,
+        height: 32,
+        alt: `${site.name} portfolio icon`,
+      },
+    ],
   },
-};
+  twitter: {
+    card: 'summary',
+    title: `${site.name} | ${site.label}`,
+    description: site.description,
+    images: ['/icons/w95.png'],
+  },
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
       <body>
+        <FaviconAnimator />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getPersonJsonLd()),
+          }}
+        />
         <div className="desktop-backdrop" aria-hidden />
         {children}
       </body>
     </html>
-  );
+  )
 }

@@ -1,25 +1,29 @@
-import { site, type TimelineEntry } from "@/data/site";
-import styles from "./content.module.css";
+import { site, type TimelineEntry } from '@/data/site'
+import styles from './styles/content.module.css'
+import resumeStyles from './styles/resume.module.css'
 
 function TimelineSection({
   title,
   entries,
 }: {
-  title: string;
-  entries: TimelineEntry[];
+  title: string
+  entries: TimelineEntry[]
 }) {
   return (
-    <section className={styles.timeline}>
+    <section className={resumeStyles.timeline}>
       <h3>{title}</h3>
-      <ol className={styles.timelineList}>
+      <ol className={resumeStyles.timelineList}>
         {entries.map((entry) => (
-          <li key={`${entry.organization}-${entry.duration}`} className={styles.timelineItem}>
+          <li
+            key={`${entry.organization}-${entry.duration}`}
+            className={resumeStyles.timelineItem}
+          >
             <h4>{entry.organization}</h4>
             <p className={styles.timelineMeta}>
               <strong>{entry.title}</strong> · {entry.duration}
             </p>
             {entry.bullets.length > 0 && (
-              <ul className={styles.timelineBullets}>
+              <ul className={resumeStyles.timelineBullets}>
                 {entry.bullets.map((bullet) => (
                   <li key={bullet}>{bullet}</li>
                 ))}
@@ -29,7 +33,7 @@ function TimelineSection({
         ))}
       </ol>
     </section>
-  );
+  )
 }
 
 export function ResumePage() {
@@ -40,11 +44,11 @@ export function ResumePage() {
       </header>
       <TimelineSection title="Experience" entries={site.experience} />
       <TimelineSection title="Education" entries={site.education} />
-      <section className={styles.timeline}>
+      <section className={resumeStyles.timeline}>
         <h3>Certificates</h3>
-        <ol className={styles.timelineList}>
+        <ol className={resumeStyles.timelineList}>
           {site.certificates.map((cert) => (
-            <li key={cert.title} className={styles.timelineItem}>
+            <li key={cert.title} className={resumeStyles.timelineItem}>
               <h4>
                 <a href={cert.link} target="_blank" rel="noreferrer">
                   {cert.title}
@@ -58,5 +62,5 @@ export function ResumePage() {
         </ol>
       </section>
     </article>
-  );
+  )
 }

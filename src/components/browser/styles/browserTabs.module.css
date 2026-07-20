@@ -1,0 +1,99 @@
+.tabBar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  margin: 0 0 -1px;
+  padding: 0;
+  background: transparent;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  list-style: none;
+}
+
+.tabBar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--chrome-highlight);
+}
+
+.tabItem {
+  position: relative;
+  z-index: 1;
+  margin: 0 1px 0 0;
+  border: 1px solid;
+  border-color: var(--chrome-highlight) var(--chrome-dark)
+    var(--chrome-highlight) var(--chrome-highlight);
+  border-radius: 5px 5px 0 0;
+  background: var(--chrome-face);
+}
+
+.tabItem::before,
+.tabItem::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  width: 3px;
+  height: 3px;
+  background: var(--chrome-face);
+  pointer-events: none;
+}
+
+.tabItem::before {
+  left: -1px;
+  border-top: 1px solid var(--chrome-highlight);
+  border-left: 1px solid var(--chrome-highlight);
+  border-radius: 4px 0 0;
+}
+
+.tabItem::after {
+  right: -1px;
+  border-top: 1px solid var(--chrome-dark);
+  border-right: 1px solid var(--chrome-dark);
+  border-radius: 0 4px 0 0;
+}
+
+.tabItemActive {
+  z-index: 2;
+  padding-top: 3px;
+  background: var(--chrome-face);
+  border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-face)
+    var(--chrome-highlight);
+}
+
+.tabItemActive .tab::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--chrome-face);
+}
+
+.tab {
+  position: relative;
+  display: block;
+  padding: 4px 12px 5px;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--content-text);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tabItem:hover {
+  background: #dfdfdf;
+}
+
+.tabItemActive:hover {
+  background: var(--chrome-face);
+}

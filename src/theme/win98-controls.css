@@ -1,0 +1,57 @@
+.win98Button {
+  appearance: none;
+  border: 2px solid;
+  border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-dark)
+    var(--chrome-highlight);
+  background: var(--chrome-face);
+  box-shadow:
+    inset -1px -1px 0 var(--chrome-shadow),
+    inset 1px 1px 0 #dfdfdf;
+  color: var(--content-text);
+  cursor: default;
+  outline: none;
+}
+
+.win98Button:hover:not(:disabled) {
+  background: #dfdfdf;
+}
+
+.win98Button:active:not(:disabled),
+.win98ButtonPressed {
+  border-color: var(--chrome-shadow) var(--chrome-highlight)
+    var(--chrome-highlight) var(--chrome-shadow);
+  box-shadow:
+    inset 1px 1px 0 var(--chrome-dark),
+    inset -1px -1px 0 #dfdfdf;
+}
+
+.win98Button:focus-visible {
+  outline: 1px dotted var(--chrome-dark);
+  outline-offset: -5px;
+}
+
+.win98Button:disabled {
+  color: var(--chrome-shadow);
+  cursor: not-allowed;
+}
+
+.win98InsetPanel {
+  background: var(--content-panel);
+  border: 2px solid;
+  border-color: var(--chrome-shadow) var(--chrome-highlight)
+    var(--chrome-highlight) var(--chrome-shadow);
+}
+
+.win98InsetChromePanel {
+  background: var(--chrome-face);
+  border: 2px solid;
+  border-color: var(--chrome-shadow) var(--chrome-highlight)
+    var(--chrome-highlight) var(--chrome-shadow);
+}
+
+.win98RaisedChromePanel {
+  background: var(--chrome-face);
+  border: 2px solid;
+  border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-dark)
+    var(--chrome-highlight);
+}

@@ -1,47 +1,78 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server'
+import { getContactConfig } from '@/lib/contact/config'
+import { sendContactEmail } from '@/lib/contact/resend'
+import { verifyTurnstileToken } from '@/lib/contact/turnstile'
+
+type ContactRequestBody = {
+  fullname?: string
+  email?: string
+  message?: string
+  turnstileToken?: string
+}
 
 export async function POST(request: Request) {
-  const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+  const config = getContactConfig()
 
-  if (!accessKey) {
+  if (!config) {
     return NextResponse.json(
-      { error: "Contact form is not configured (WEB3FORMS_ACCESS_KEY missing)" },
-      { status: 503 },
-    );
+      { error: 'Contact form is not configured' },
+      { status: 503 }
+    )
   }
 
-  let body: { fullname?: string; email?: string; message?: string };
+  let body: ContactRequestBody
 
   try {
-    body = await request.json();
+    body = await request.json()
   } catch {
-    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
-  const { fullname, email, message } = body;
+  const { fullname, email, message, turnstileToken } = body
+  const trimmedFullname = fullname?.trim()
+  const trimmedEmail = email?.trim()
+  const trimmedMessage = message?.trim()
 
-  if (!fullname?.trim() || !email?.trim() || !message?.trim()) {
-    return NextResponse.json({ error: "All fields are required" }, { status: 400 });
+  if (!trimmedFullname || !trimmedEmail || !trimmedMessage) {
+    return NextResponse.json(
+      { error: 'All fields are required' },
+      { status: 400 }
+    )
   }
 
-  const response = await fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      access_key: accessKey,
-      subject: "New Submission from Portfolio Website",
-      from_name: fullname,
-      email,
-      message,
-    }),
-  });
+  const passedTurnstile =
+    turnstileToken &&
+    (await verifyTurnstileToken({
+      request,
+      secretKey: config.turnstileSecretKey,
+      token: turnstileToken,
+    }))
 
-  if (!response.ok) {
-    return NextResponse.json({ error: "Failed to deliver message" }, { status: 502 });
+  if (!passedTurnstile) {
+    return NextResponse.json(
+      { error: 'Anti-bot check failed' },
+      { status: 400 }
+    )
   }
 
-  return NextResponse.json({ ok: true });
+  const delivery = await sendContactEmail(config.resend, {
+    email: trimmedEmail,
+    fullname: trimmedFullname,
+    message: trimmedMessage,
+  })
+
+  if (!delivery.ok) {
+    return NextResponse.json(
+      {
+        error:
+          'Email provider rejected the message. Check that RESEND_FROM_EMAIL uses a verified Resend sending domain.',
+        ...(process.env.NODE_ENV === 'development'
+          ? { details: delivery.error }
+          : {}),
+      },
+      { status: 502 }
+    )
+  }
+
+  return NextResponse.json({ ok: true })
 }

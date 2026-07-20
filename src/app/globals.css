@@ -1,9 +1,10 @@
-@import "../theme/desktop.css";
-@import "../theme/win95-scrollbar.css";
+@import '../theme/desktop.css';
+@import '../theme/win95-scrollbar.css';
+@import '../theme/win98-controls.css';
 
 @font-face {
-  font-family: "Windows 95";
-  src: url("/fonts/w-95-sans-serif.woff2") format("woff2");
+  font-family: 'Windows 95';
+  src: url('/fonts/w-95-sans-serif.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

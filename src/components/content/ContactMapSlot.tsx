@@ -1,17 +1,24 @@
-"use client";
-
-import { useLayoutEffect, useRef } from "react";
-import { useContactMap } from "./ContactMapContext";
-import styles from "./content.module.css";
+import { CONTACT_MAP_TITLE, getContactMapTiles } from '@/lib/contactMap'
+import styles from './styles/contactMap.module.css'
 
 export function ContactMapSlot() {
-  const hostRef = useRef<HTMLDivElement>(null);
-  const { registerSlot } = useContactMap();
+  const tiles = getContactMapTiles()
 
-  useLayoutEffect(() => {
-    registerSlot(hostRef.current);
-    return () => registerSlot(null);
-  }, [registerSlot]);
-
-  return <div ref={hostRef} className={styles.mapHost} />;
+  return (
+    <figure className={styles.mapHost} aria-label={CONTACT_MAP_TITLE}>
+      <div className={styles.mapTiles} aria-hidden>
+        {tiles.map((tile) => (
+          <img
+            key={tile.key}
+            className={styles.mapTile}
+            src={tile.url}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            style={{ left: tile.left, top: tile.top }}
+          />
+        ))}
+      </div>
+    </figure>
+  )
 }

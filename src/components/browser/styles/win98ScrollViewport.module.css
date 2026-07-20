@@ -1,0 +1,94 @@
+.scrollArea {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollArea::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollContent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollbar {
+  width: 16px;
+  flex: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--chrome-face);
+  border-left: 1px solid var(--chrome-shadow);
+}
+
+.scrollButton {
+  composes: win98Button from global;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  padding: 0;
+}
+
+.scrollButton::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+}
+
+.scrollButtonUp::before {
+  border-right: 4px solid transparent;
+  border-bottom: 5px solid var(--chrome-dark);
+  border-left: 4px solid transparent;
+}
+
+.scrollButtonDown::before {
+  border-top: 5px solid var(--chrome-dark);
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.track {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background:
+    linear-gradient(
+      45deg,
+      var(--chrome-highlight) 25%,
+      transparent 25% 75%,
+      var(--chrome-highlight) 75%
+    ),
+    linear-gradient(
+      45deg,
+      var(--chrome-highlight) 25%,
+      transparent 25% 75%,
+      var(--chrome-highlight) 75%
+    ),
+    var(--chrome-face);
+  background-position:
+    0 0,
+    1px 1px;
+  background-size: 2px 2px;
+}
+
+.thumb {
+  composes: win98Button from global;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  touch-action: none;
+}

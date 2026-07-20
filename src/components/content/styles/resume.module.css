@@ -1,0 +1,35 @@
+.timeline {
+  margin-bottom: var(--space-xl);
+}
+
+.timelineList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.timelineItem {
+  composes: win98InsetPanel from global;
+  padding: var(--space-md);
+}
+
+.timelineItem h4 {
+  margin-bottom: var(--space-xs);
+}
+
+.timelineItem h4 a {
+  color: var(--content-link);
+  font-weight: 700;
+}
+
+.timelineBullets {
+  margin: var(--space-sm) 0 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: var(--content-text);
+  font-size: 0.75rem;
+}
+
+.timelineBullets li {
+  margin-bottom: var(--space-xs);
+}

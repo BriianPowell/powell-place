@@ -5,7 +5,7 @@
 :root {
   /* Desktop (outside the window) */
   --desktop-bg: #008080;
-  --taskbar-height: 32px;
+  --taskbar-height: 38px;
 
   /* Win95 chrome */
   --chrome-face: #c0c0c0;
@@ -28,7 +28,8 @@
   --accent-violet: #6b4c9a;
 
   /* Typography — Windows 95 UI Kit font with system fallbacks */
-  --font-win95: "Windows 95", Tahoma, "MS Sans Serif", "Segoe UI", Geneva, sans-serif;
+  --font-win95:
+    'Windows 95', Tahoma, 'MS Sans Serif', 'Segoe UI', Geneva, sans-serif;
   --font-ui: var(--font-win95);
   --font-body: var(--font-win95);
   --font-display: var(--font-win95);

@@ -1,5 +1,6 @@
-import { site } from "@/data/site";
-import styles from "./content.module.css";
+import { site } from '@/data/site'
+import aboutStyles from './styles/about.module.css'
+import styles from './styles/content.module.css'
 
 export function AboutPage() {
   return (
@@ -13,9 +14,9 @@ export function AboutPage() {
       </section>
       <section className={styles.section}>
         <h3>What I&apos;m doing</h3>
-        <ul className={styles.serviceGrid}>
+        <ul className={aboutStyles.serviceGrid}>
           {site.services.map((service) => (
-            <li key={service.title} className={styles.serviceCard}>
+            <li key={service.title} className={aboutStyles.serviceCard}>
               <h4>{service.title}</h4>
               <p>{service.text}</p>
             </li>
@@ -23,5 +24,5 @@ export function AboutPage() {
         </ul>
       </section>
     </article>
-  );
+  )
 }

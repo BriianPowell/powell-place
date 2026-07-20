@@ -1,6 +1,6 @@
-import { ContactForm } from "./ContactForm";
-import { ContactMapSlot } from "./ContactMapSlot";
-import styles from "./content.module.css";
+import { ContactForm } from './ContactForm'
+import { ContactMapSlot } from './ContactMapSlot'
+import styles from './styles/content.module.css'
 
 export function ContactPage() {
   return (
@@ -16,5 +16,5 @@ export function ContactPage() {
         <ContactForm />
       </section>
     </article>
-  );
+  )
 }

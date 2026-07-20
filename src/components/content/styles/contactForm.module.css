@@ -1,0 +1,71 @@
+.form {
+  composes: win98InsetPanel from global;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md);
+}
+
+.fieldRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.input {
+  composes: win98InsetPanel from global;
+  flex: 1;
+  min-width: 180px;
+  padding: 6px 8px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--content-text);
+}
+
+.textarea {
+  composes: win98InsetPanel from global;
+  flex: 1;
+  min-width: 180px;
+  min-height: 100px;
+  padding: 6px 8px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--content-text);
+  resize: vertical;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: 1px dotted var(--chrome-dark);
+  outline-offset: -4px;
+}
+
+.turnstileWrap {
+  composes: win98InsetChromePanel from global;
+  align-self: flex-start;
+  min-height: 65px;
+  padding: 4px;
+}
+
+.submitBtn {
+  align-self: flex-start;
+  padding: 8px 20px;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.formMessage {
+  font-size: 0.75rem;
+}
+
+.formMessageSuccess {
+  color: var(--content-text);
+  font-weight: 700;
+}
+
+.formMessageError {
+  color: #800000;
+  font-weight: 700;
+}

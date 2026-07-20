@@ -4,18 +4,15 @@
 }
 
 .panel {
+  composes: win98RaisedChromePanel from global;
   position: fixed;
-  left: 3px;
+  left: 0;
   bottom: var(--taskbar-height);
   z-index: 21;
   display: flex;
   flex-direction: row;
-  width: 268px;
-  max-height: min(440px, calc(100vh - var(--taskbar-height) - 4px));
-  background: var(--chrome-face);
-  border: 2px solid;
-  border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-dark)
-    var(--chrome-highlight);
+  width: 312px;
+  max-height: min(500px, calc(100vh - var(--taskbar-height) - 4px));
   box-shadow: 2px 2px 0 var(--chrome-dark);
   overflow: hidden;
 }
@@ -23,7 +20,7 @@
 /* Left rail — like Nightwave “Second Edition” strip */
 .spine {
   flex-shrink: 0;
-  width: 28px;
+  width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +37,7 @@
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   font-family: var(--font-ui);
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--chrome-title-text);
@@ -53,15 +50,15 @@
   flex: 1;
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow: auto;
   background: var(--chrome-face);
 }
 
 @media (max-width: 720px) {
   .panel {
-    left: 3px;
+    left: 0;
     right: 3px;
     width: auto;
-    max-width: 300px;
+    max-width: 336px;
   }
 }

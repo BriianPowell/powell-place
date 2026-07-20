@@ -1,21 +1,25 @@
-import { site } from "@/data/site";
-import styles from "./sidebar.module.css";
+import { site } from '@/data/site'
+import styles from './styles/sidebar.module.css'
 
 type SidebarProps = {
   /** Render inside the desktop profile panel (no side border). */
-  embedded?: boolean;
-};
+  embedded?: boolean
+}
 
 export function Sidebar({ embedded = false }: SidebarProps) {
-  const initials = site.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("");
-
   return (
-    <aside className={embedded ? `${styles.sidebar} ${styles.embedded}` : styles.sidebar}>
+    <aside
+      className={
+        embedded ? `${styles.sidebar} ${styles.embedded}` : styles.sidebar
+      }
+    >
       <div className={styles.avatar} aria-hidden>
-        {initials}
+        <img
+          className={styles.avatarImage}
+          src="/icons/avatar1_win98.png"
+          alt=""
+          draggable={false}
+        />
       </div>
       <div>
         <h1 className={styles.name}>{site.name}</h1>
@@ -33,7 +37,10 @@ export function Sidebar({ embedded = false }: SidebarProps) {
         </li>
         <li className={styles.contactItem}>
           <p className={styles.contactLabel}>Phone</p>
-          <a href={`tel:${site.phone.replace(/\./g, "")}`} className={styles.contactValue}>
+          <a
+            href={`tel:${site.phone.replace(/\./g, '')}`}
+            className={styles.contactValue}
+          >
             {site.phone}
           </a>
         </li>
@@ -56,7 +63,7 @@ export function Sidebar({ embedded = false }: SidebarProps) {
               href={profile.url}
               target="_blank"
               rel="noreferrer"
-              className={styles.socialLink}
+              className={`${styles.socialLink} win98Button`}
             >
               {profile.network}
             </a>
@@ -64,5 +71,5 @@ export function Sidebar({ embedded = false }: SidebarProps) {
         ))}
       </ul>
     </aside>
-  );
+  )
 }

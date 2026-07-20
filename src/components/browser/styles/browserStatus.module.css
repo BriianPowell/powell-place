@@ -1,0 +1,101 @@
+.statusBar {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  padding: 2px 3px 4px;
+  background: var(--chrome-face);
+  flex-shrink: 0;
+  min-height: 32px;
+}
+
+.statusPane {
+  display: flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 3px 5px;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: var(--content-text);
+  background: var(--chrome-face);
+  border: 1px solid;
+  border-color: var(--chrome-shadow) var(--chrome-highlight)
+    var(--chrome-highlight) var(--chrome-shadow);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statusPane[data-variant='main'] {
+  flex: 1;
+  min-width: 56px;
+  gap: 5px;
+}
+
+.statusPane[data-variant='spacer'] {
+  flex: 0 0 34px;
+}
+
+.statusPane[data-variant='small'] {
+  flex: 0 0 34px;
+}
+
+.statusPane[data-variant='zone'] {
+  flex: 0 0 148px;
+  gap: 5px;
+  justify-content: flex-start;
+  padding-left: 6px;
+  padding-right: 22px;
+}
+
+.statusPaneIconImg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.statusZoneIcon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.statusGrip {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: nwse-resize;
+  touch-action: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.statusGrip:hover {
+  background: transparent;
+}
+
+.statusGrip:active {
+  background: transparent;
+}
+
+.statusGripIcon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
