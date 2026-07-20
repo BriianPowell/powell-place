@@ -89,7 +89,13 @@ export const site = {
   ] satisfies Service[],
   experience: [
     {
-      organization: 'Mckinsey & Company',
+      organization: 'McKinsey & Company',
+      duration: '2024 - Present',
+      title: 'Senior Engineer I',
+      bullets: [],
+    },
+    {
+      organization: 'McKinsey & Company',
       duration: '2022 - 2024',
       title: 'Engineer II, Cloud',
       bullets: [],

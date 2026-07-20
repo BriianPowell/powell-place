@@ -5,7 +5,7 @@ A Next.js portfolio with a **Win95-style** desktop: draggable browser window, St
 ## Quick start
 
 ```bash
-cd portfolio
+cd powell-place
 npm install
 cp .env.example .env.local   # optional: contact form
 npm run dev
@@ -81,8 +81,8 @@ Import `src/theme/desktop.css` for design tokens (`--chrome-face`, `--font-win95
 ## Lint and format
 
 ```bash
-npm run lint              # ESLint via Next.js
-npm run lint:fix          # Next.js ESLint with auto-fix
+npm run lint              # ESLint — check
+npm run lint:fix          # ESLint with auto-fix
 npm run lint:eslint       # ESLint directly (all .js/.ts/.tsx)
 npm run lint:eslint:fix   # ESLint direct with auto-fix
 npm run format            # Prettier — write
@@ -96,7 +96,21 @@ ESLint rules match [collective/.eslintrc.js](https://github.com/BriianPowell/col
 
 ## Deploy
 
+This app deploys to Cloudflare Workers through the OpenNext Cloudflare adapter. The older `@cloudflare/next-on-pages` adapter is deprecated for modern Next.js apps.
+
 ```bash
-npm run build
-npm start
+npm run preview   # build and preview in the Workers runtime
+npm run deploy    # build and deploy to Cloudflare
 ```
+
+Set these variables in Cloudflare Workers build/runtime settings:
+
+```bash
+RESEND_API_KEY=...
+RESEND_FROM_EMAIL="Portfolio <contact@mail.powell.place>"
+CONTACT_TO_EMAIL=ships-nucleus8o@icloud.com
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=...
+TURNSTILE_SECRET_KEY=...
+```
+
+`wrangler.jsonc` enables `nodejs_compat` and serves OpenNext assets from `.open-next/assets`.
