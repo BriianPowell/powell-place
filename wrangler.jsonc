@@ -21,4 +21,14 @@
   "observability": {
     "enabled": true,
   },
+  "env": {
+    "preview": {
+      "name": "powell-place-preview",
+      "workers_dev": true,
+      "routes": [],
+      "vars": {
+        "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
+      },
+    },
+  },
 }
