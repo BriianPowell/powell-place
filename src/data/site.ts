@@ -58,11 +58,6 @@ export const site = {
       username: 'briianpowell',
       url: 'https://www.linkedin.com/in/briianpowell/',
     },
-    {
-      network: 'Instagram',
-      username: 'briianpowell',
-      url: 'https://www.instagram.com/briianpowell/',
-    },
   ] satisfies SocialProfile[],
   services: [
     {

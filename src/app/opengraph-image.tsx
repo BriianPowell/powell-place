@@ -84,8 +84,7 @@ export default function OpenGraphImage() {
               lineHeight: 1.25,
             }}
           >
-            Backend systems, cloud infrastructure, CI/CD, and practical AI
-            workflows.
+            Compiling thoughts, deploying vibes.
           </div>
         </div>
         <div
