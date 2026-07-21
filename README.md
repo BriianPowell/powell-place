@@ -1,6 +1,8 @@
 # Portfolio — Win95 Desktop
 
-A Next.js portfolio with a **Win95-style** desktop: draggable browser window, Start menu profile panel, and taskbar. Content mirrors [powell.place](https://powell.place).
+[![powell.place status](https://img.shields.io/website?url=https%3A%2F%2Fpowell.place&label=powell.place&logo=cloudflare&logoColor=white)](https://powell.place)
+
+A Next.js portfolio with a **Win95-style** desktop: draggable browser window, Start menu profile panel, and taskbar.
 
 ## Quick start
 
@@ -15,10 +17,11 @@ Open [http://localhost:3000/about](http://localhost:3000/about) (`/` redirects t
 
 ## Desktop UI
 
-- **Browser:** Drag the title bar to move; drag the status-bar grip to resize (default 960×640). Toolbar: Back, Forward, Home, address bar.
+- **Browser:** Drag the title bar to move; drag the status-bar grip to resize. Toolbar: Back, Forward, Home, address bar.
 - **Title bar:** **Minimize** hides the window to the taskbar; click **Brian Powell** on the taskbar to restore. **Maximize** expands the browser window inside the desktop.
 - **Taskbar:** **Start** opens the profile panel (contacts + social links). **Brian Powell** focuses or restores the browser window.
-- **Assets:** `public/icons/w95.ico` (tab + Start), `public/icons/html.ico` (title bar + status page icon), `public/icons/earth.ico` (app button + Internet zone), `public/icons/internet.ico` (taskbar tray), `public/fonts/w-95-sans-serif.woff2` ([Windows 95 UI Kit](https://github.com/themesberg/windows-95-ui-kit), MIT).
+- **Wallpaper:** The desktop randomly preloads one image from `public/wallpapers/` on each visit.
+- **Assets:** `public/icons/joystick_*.png` (animated favicon), `public/icons/w95.png` (Start), `public/icons/html.png` (title bar + status page icon), `public/icons/earth.png` (app button + Internet zone), `public/icons/connect_*.png` (tray), `public/icons/focus-*.png` (About page focus cards), `public/fonts/w-95-sans-serif.woff2` ([Windows 95 UI Kit](https://github.com/themesberg/windows-95-ui-kit), MIT).
 
 ## Contact form
 
@@ -63,24 +66,31 @@ The app generates `src/content/blog/manifest.ts` from those Markdown files befor
 `dev`, `build`, `preview`, and `deploy`. Run `npm run generate:blog` manually if
 you add or edit posts while a dev server is already running.
 
+## SEO and previews
+
+The app defines page-specific metadata, `robots.txt`, `sitemap.xml`, and JSON-LD
+structured data. Social previews use a generated Open Graph image at
+`/opengraph-image`.
+
 ## Reusing the theme
 
 Import `src/theme/desktop.css` for design tokens (`--chrome-face`, `--font-win95`, etc.) in other self-hosted apps.
 
 ## Structure
 
-| Path                      | Purpose                                                    |
-| ------------------------- | ---------------------------------------------------------- |
-| `src/data/site.ts`        | Copy, resume, links, tab routes                            |
-| `src/theme/desktop.css`   | Design tokens (Win95 chrome, spacing)                      |
-| `src/lib/`                | `routing`, `address`, `contactMap`, `formatClock`, `icons` |
-| `src/components/browser/` | Browser window + toolbar                                   |
-| `src/components/desktop/` | Taskbar, profile panel, desktop state, map provider        |
-| `src/components/sidebar/` | Profile content (Start menu)                               |
-| `src/components/content/` | About, Resume, Blog, Contact pages                         |
-| `src/content/blog/`       | Markdown blog posts                                        |
-| `src/app/(site)/`         | `/about`, `/resume`, `/blog`, `/contact`                   |
-| `src/app/api/contact/`    | Contact form POST handler                                  |
+| Path                      | Purpose                                                       |
+| ------------------------- | ------------------------------------------------------------- |
+| `src/data/site.ts`        | Site copy, resume data, links, service icons, tab routes      |
+| `src/data/wallpapers.ts`  | Desktop wallpaper manifest                                    |
+| `src/theme/desktop.css`   | Design tokens (Win95 chrome, spacing)                         |
+| `src/lib/`                | Routing, SEO, address, contact map, clock, icons              |
+| `src/components/browser/` | Browser window, toolbar, tabs, status bar, custom scroll area |
+| `src/components/desktop/` | Taskbar, profile panel, desktop state, wallpaper loader       |
+| `src/components/sidebar/` | Profile content (Start menu)                                  |
+| `src/components/content/` | About, Resume, Blog, Contact pages and page-specific styles   |
+| `src/content/blog/`       | Markdown blog posts and generated manifest                    |
+| `src/app/(site)/`         | `/about`, `/resume`, `/blog`, `/contact`                      |
+| `src/app/api/contact/`    | Contact form POST handler                                     |
 
 ## Lint and format
 
@@ -103,8 +113,9 @@ ESLint rules match [collective/.eslintrc.js](https://github.com/BriianPowell/col
 This app deploys to Cloudflare Workers through the OpenNext Cloudflare adapter. The older `@cloudflare/next-on-pages` adapter is deprecated for modern Next.js apps.
 
 ```bash
-npm run preview   # build and preview in the Workers runtime
-npm run deploy    # build and deploy to Cloudflare
+npm run preview          # build and preview the preview env locally
+npm run deploy           # build and deploy the production env
+npm run deploy:preview   # build and deploy the preview env
 ```
 
 Set these variables in Cloudflare Workers build/runtime settings:
