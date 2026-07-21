@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { AboutPage } from '@/components/content/AboutPage'
 import { site } from '@/data/site'
+import { socialImage } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -12,6 +13,11 @@ export const metadata: Metadata = {
     title: `About ${site.name}`,
     description: site.description,
     url: '/about',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [socialImage],
   },
 }
 

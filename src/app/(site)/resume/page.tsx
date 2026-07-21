@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ResumePage } from '@/components/content/ResumePage'
 import { site } from '@/data/site'
+import { socialImage } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Resume',
@@ -14,6 +15,11 @@ export const metadata: Metadata = {
     description:
       'Work history, education, and certifications for Brian Powell, software engineer.',
     url: '/resume',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [socialImage],
   },
 }
 

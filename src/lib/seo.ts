@@ -1,5 +1,12 @@
 import { site } from '@/data/site'
 
+export const socialImage = {
+  url: '/opengraph-image',
+  width: 1200,
+  height: 630,
+  alt: `${site.name} portfolio preview`,
+}
+
 export const seoKeywords = [
   'Brian Powell',
   'Software Engineer',

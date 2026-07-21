@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { FaviconAnimator } from '@/components/FaviconAnimator'
 import { site } from '@/data/site'
 import { icons } from '@/lib/icons'
-import { getPersonJsonLd, seoKeywords } from '@/lib/seo'
+import { getPersonJsonLd, seoKeywords, socialImage } from '@/lib/seo'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -41,20 +41,13 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: 'en_US',
     type: 'profile',
-    images: [
-      {
-        url: '/icons/w95.png',
-        width: 32,
-        height: 32,
-        alt: `${site.name} portfolio icon`,
-      },
-    ],
+    images: [socialImage],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: `${site.name} | ${site.label}`,
     description: site.description,
-    images: ['/icons/w95.png'],
+    images: [socialImage],
   },
 }
 
