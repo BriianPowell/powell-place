@@ -12,10 +12,18 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
           &lt; Back to Blog
         </Link>
         <h2>{post.title}</h2>
-        <p className={styles.timelineMeta}>
-          <time dateTime={post.date}>{post.date}</time>
-          {post.tags.length > 0 && <> · {post.tags.join(', ')}</>}
-        </p>
+        <div className={blogStyles.postMeta}>
+          <time className={blogStyles.metaBadge} dateTime={post.date}>
+            {post.date}
+          </time>
+          {post.tags.length > 0 && (
+            <ul className={blogStyles.tagList} aria-label="Post tags">
+              {post.tags.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          )}
+        </div>
         <p>{post.description}</p>
       </header>
       <MarkdownArticle contentHtml={post.contentHtml} />

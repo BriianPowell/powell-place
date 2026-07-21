@@ -16,13 +16,21 @@ export function BlogListPage({ posts }: { posts: BlogPostMeta[] }) {
       <ol className={blogStyles.blogList}>
         {posts.map((post) => (
           <li key={post.slug} className={blogStyles.blogCard}>
-            <h3>
-              <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-            </h3>
-            <p className={styles.timelineMeta}>
-              <time dateTime={post.date}>{post.date}</time>
-              {post.tags.length > 0 && <> · {post.tags.join(', ')}</>}
-            </p>
+            <div className={blogStyles.blogCardHeader}>
+              <h3>
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+              </h3>
+              <time className={blogStyles.metaBadge} dateTime={post.date}>
+                {post.date}
+              </time>
+            </div>
+            {post.tags.length > 0 && (
+              <ul className={blogStyles.tagList} aria-label="Post tags">
+                {post.tags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            )}
             <p>{post.description}</p>
           </li>
         ))}

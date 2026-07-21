@@ -2,21 +2,74 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .blogCard {
   composes: win98InsetPanel from global;
-  padding: var(--space-md);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-md) var(--space-md) var(--space-md)
+    calc(var(--space-md) + 8px);
+  background:
+    linear-gradient(90deg, #000080 0 8px, transparent 8px),
+    linear-gradient(90deg, rgba(0, 0, 128, 0.08), transparent 55%), #f8f8f8;
+}
+
+.blogCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
 }
 
 .blogCard h3 {
-  margin-bottom: var(--space-xs);
+  margin: 0;
 }
 
 .blogCard h3 a,
 .backLink {
   color: var(--content-link);
   font-weight: 700;
+}
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.metaBadge,
+.tagList li {
+  flex: 0 0 auto;
+  padding: 3px 6px;
+  background: var(--chrome-face);
+  border: 1px solid;
+  border-color: var(--chrome-highlight) var(--chrome-shadow)
+    var(--chrome-shadow) var(--chrome-highlight);
+  color: var(--content-muted);
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 var(--space-sm);
+  padding: 0;
+  list-style: none;
+}
+
+.postMeta .tagList {
+  margin-bottom: 0;
 }
 
 .blogCard p:last-child,
@@ -26,7 +79,15 @@
 }
 
 .blogHeader {
+  composes: win98InsetPanel from global;
+  position: relative;
+  overflow: hidden;
   margin-bottom: var(--space-lg);
+  padding: var(--space-lg) var(--space-lg) var(--space-lg)
+    calc(var(--space-lg) + 8px);
+  background:
+    linear-gradient(90deg, #008080 0 8px, transparent 8px),
+    linear-gradient(90deg, rgba(0, 128, 128, 0.1), transparent 55%), #f8f8f8;
 }
 
 .backLink {
@@ -36,7 +97,12 @@
 }
 
 .markdownArticle {
+  composes: win98InsetPanel from global;
   max-width: 70ch;
+  padding: var(--space-lg);
+  background:
+    linear-gradient(90deg, rgba(128, 96, 0, 0.08), transparent 45%),
+    var(--content-panel);
 }
 
 .markdownArticle h2,
@@ -91,4 +157,11 @@
 
 .markdownArticle pre code {
   background: transparent;
+}
+
+@media (max-width: 640px) {
+  .blogCardHeader {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
 }
