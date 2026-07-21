@@ -73,7 +73,9 @@ export function ResumePage() {
                     {cert.title}
                   </a>
                 </h4>
-                <span className={resumeStyles.durationBadge}>Active</span>
+                <span className={resumeStyles.durationBadge}>
+                  {cert.status}
+                </span>
               </div>
               <p className={styles.timelineMeta}>
                 <strong>{cert.organization}</strong>

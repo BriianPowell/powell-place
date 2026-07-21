@@ -2,6 +2,8 @@ export type Service = {
   title: string
   text: string
   icon: string
+  accent: string
+  wash: string
 }
 
 export type TimelineEntry = {
@@ -15,6 +17,7 @@ export type Certificate = {
   title: string
   organization: string
   link: string
+  status: string
 }
 
 export type SocialProfile = {
@@ -66,31 +69,43 @@ export const site = {
       title: 'Application & Platform Engineering',
       text: 'Building end-to-end systems that connect product needs, platform capabilities, and reliable delivery.',
       icon: '/icons/focus-platform.png',
+      accent: '#000080',
+      wash: 'rgba(0, 0, 128, 0.08)',
     },
     {
       title: 'Kubernetes & Cloud Native',
       text: 'Working with containers, Kubernetes, and cloud infrastructure to run services cleanly and consistently.',
       icon: '/icons/focus-cloud.png',
+      accent: '#008080',
+      wash: 'rgba(0, 128, 128, 0.1)',
     },
     {
       title: 'Developer Experience',
       text: 'Creating automation, workflows, and internal tooling that make engineering teams more effective.',
       icon: '/icons/focus-devex.png',
+      accent: '#806000',
+      wash: 'rgba(128, 96, 0, 0.12)',
     },
     {
       title: 'Software Delivery',
       text: 'Improving CI/CD, infrastructure-as-code, and release patterns to reduce friction and technical debt.',
       icon: '/icons/focus-delivery.png',
+      accent: '#800080',
+      wash: 'rgba(128, 0, 128, 0.08)',
     },
     {
       title: 'Practical AI Workflows',
       text: 'Exploring AI-assisted engineering workflows that improve delivery, operations, and code quality.',
       icon: '/icons/focus-ai.png',
+      accent: '#008000',
+      wash: 'rgba(0, 128, 0, 0.08)',
     },
     {
       title: 'Resilient Architecture',
       text: 'Designing backend and distributed systems with reliability, security, and operability in mind.',
       icon: '/icons/focus-resilience.png',
+      accent: '#800000',
+      wash: 'rgba(128, 0, 0, 0.08)',
     },
   ] satisfies Service[],
   experience: [
@@ -143,6 +158,7 @@ export const site = {
       title: 'Solutions Architect - Associate',
       organization: 'Amazon Web Services (AWS)',
       link: 'https://www.credly.com/badges/1861a356-44d4-47ea-9276-f41af470d87c',
+      status: 'Expired',
     },
   ] satisfies Certificate[],
 } as const

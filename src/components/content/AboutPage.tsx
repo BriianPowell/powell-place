@@ -1,6 +1,25 @@
+import type { CSSProperties } from 'react'
 import { site } from '@/data/site'
 import aboutStyles from './styles/about.module.css'
 import styles from './styles/content.module.css'
+
+type ServiceAccentStyle = CSSProperties & {
+  '--service-accent': string
+  '--service-wash': string
+}
+
+function getServiceAccentStyle({
+  accent,
+  wash,
+}: {
+  accent: string
+  wash: string
+}): ServiceAccentStyle {
+  return {
+    '--service-accent': accent,
+    '--service-wash': wash,
+  }
+}
 
 export function AboutPage() {
   return (
@@ -20,7 +39,11 @@ export function AboutPage() {
         </div>
         <ul className={aboutStyles.serviceGrid}>
           {site.services.map((service) => (
-            <li key={service.title} className={aboutStyles.serviceCard}>
+            <li
+              key={service.title}
+              className={aboutStyles.serviceCard}
+              style={getServiceAccentStyle(service)}
+            >
               <span className={aboutStyles.serviceIconWrap} aria-hidden="true">
                 <img
                   className={aboutStyles.serviceIcon}

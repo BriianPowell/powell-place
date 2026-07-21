@@ -88,36 +88,6 @@
     linear-gradient(90deg, var(--service-wash), transparent 55%), #f8f8f8;
 }
 
-.serviceCard:nth-child(1) {
-  --service-accent: #000080;
-  --service-wash: rgba(0, 0, 128, 0.08);
-}
-
-.serviceCard:nth-child(2) {
-  --service-accent: #008080;
-  --service-wash: rgba(0, 128, 128, 0.1);
-}
-
-.serviceCard:nth-child(3) {
-  --service-accent: #806000;
-  --service-wash: rgba(128, 96, 0, 0.12);
-}
-
-.serviceCard:nth-child(4) {
-  --service-accent: #800080;
-  --service-wash: rgba(128, 0, 128, 0.08);
-}
-
-.serviceCard:nth-child(5) {
-  --service-accent: #008000;
-  --service-wash: rgba(0, 128, 0, 0.08);
-}
-
-.serviceCard:nth-child(6) {
-  --service-accent: #800000;
-  --service-wash: rgba(128, 0, 0, 0.08);
-}
-
 .serviceIconWrap {
   display: inline-flex;
   align-items: center;
