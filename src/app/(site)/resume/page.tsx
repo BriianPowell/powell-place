@@ -1,26 +1,29 @@
 import type { Metadata } from 'next'
 import { ResumePage } from '@/components/content/ResumePage'
 import { site } from '@/data/site'
-import { socialImage } from '@/lib/seo'
+import { getOpenGraphMetadata, getTwitterMetadata } from '@/lib/seo'
+
+const description =
+  'Resume, work history, education, and certifications for Brian Powell, a software engineer focused on backend systems, cloud, and CI/CD.'
+const socialDescription =
+  'Work history, education, and certifications for Brian Powell, software engineer.'
+const title = `${site.name} Resume`
 
 export const metadata: Metadata = {
   title: 'Resume',
-  description:
-    'Resume, work history, education, and certifications for Brian Powell, a software engineer focused on backend systems, cloud, and CI/CD.',
+  description,
   alternates: {
     canonical: '/resume',
   },
-  openGraph: {
-    title: `${site.name} Resume`,
-    description:
-      'Work history, education, and certifications for Brian Powell, software engineer.',
+  openGraph: getOpenGraphMetadata({
+    title,
+    description: socialDescription,
     url: '/resume',
-    images: [socialImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    images: [socialImage],
-  },
+  }),
+  twitter: getTwitterMetadata({
+    title,
+    description: socialDescription,
+  }),
 }
 
 export default function Resume() {

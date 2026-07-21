@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { AboutPage } from '@/components/content/AboutPage'
 import { site } from '@/data/site'
-import { socialImage } from '@/lib/seo'
+import { getOpenGraphMetadata, getTwitterMetadata } from '@/lib/seo'
+
+const title = `About ${site.name}`
 
 export const metadata: Metadata = {
   title: 'About',
@@ -9,16 +11,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/about',
   },
-  openGraph: {
-    title: `About ${site.name}`,
+  openGraph: getOpenGraphMetadata({
+    title,
     description: site.description,
     url: '/about',
-    images: [socialImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    images: [socialImage],
-  },
+  }),
+  twitter: getTwitterMetadata({
+    title,
+    description: site.description,
+  }),
 }
 
 export default function About() {

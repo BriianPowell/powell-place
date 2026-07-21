@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { site } from '@/data/site'
 
 export const socialImage = {
@@ -5,6 +6,40 @@ export const socialImage = {
   width: 1200,
   height: 630,
   alt: `${site.name} portfolio preview`,
+}
+
+type SocialMetadataInput = {
+  title: string
+  description: string
+  url: string
+}
+
+export function getOpenGraphMetadata({
+  description,
+  title,
+  url,
+}: SocialMetadataInput): NonNullable<Metadata['openGraph']> {
+  return {
+    title,
+    description,
+    url,
+    siteName: site.name,
+    locale: 'en_US',
+    type: 'website',
+    images: [socialImage],
+  }
+}
+
+export function getTwitterMetadata({
+  description,
+  title,
+}: Omit<SocialMetadataInput, 'url'>): NonNullable<Metadata['twitter']> {
+  return {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [socialImage],
+  }
 }
 
 export const seoKeywords = [

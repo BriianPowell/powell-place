@@ -2,7 +2,12 @@ import type { Metadata } from 'next'
 import { FaviconAnimator } from '@/components/FaviconAnimator'
 import { site } from '@/data/site'
 import { icons } from '@/lib/icons'
-import { getPersonJsonLd, seoKeywords, socialImage } from '@/lib/seo'
+import {
+  getPersonJsonLd,
+  getTwitterMetadata,
+  seoKeywords,
+  socialImage,
+} from '@/lib/seo'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -43,12 +48,10 @@ export const metadata: Metadata = {
     type: 'profile',
     images: [socialImage],
   },
-  twitter: {
-    card: 'summary_large_image',
+  twitter: getTwitterMetadata({
     title: `${site.name} | ${site.label}`,
     description: site.description,
-    images: [socialImage],
-  },
+  }),
 }
 
 export default function RootLayout({

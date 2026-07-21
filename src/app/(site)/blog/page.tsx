@@ -2,26 +2,27 @@ import type { Metadata } from 'next'
 import { BlogListPage } from '@/components/content/BlogListPage'
 import { site } from '@/data/site'
 import { getAllBlogPosts } from '@/lib/blog'
-import { socialImage } from '@/lib/seo'
+import { getOpenGraphMetadata, getTwitterMetadata } from '@/lib/seo'
+
+const description =
+  'Engineering notes from Brian Powell on backend systems, cloud infrastructure, CI/CD, and software projects.'
+const title = `${site.name} Blog`
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description:
-    'Engineering notes from Brian Powell on backend systems, cloud infrastructure, CI/CD, and software projects.',
+  description,
   alternates: {
     canonical: '/blog',
   },
-  openGraph: {
-    title: `${site.name} Blog`,
-    description:
-      'Engineering notes from Brian Powell on backend systems, cloud infrastructure, CI/CD, and software projects.',
+  openGraph: getOpenGraphMetadata({
+    title,
+    description,
     url: '/blog',
-    images: [socialImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    images: [socialImage],
-  },
+  }),
+  twitter: getTwitterMetadata({
+    title,
+    description,
+  }),
 }
 
 export default function Blog() {

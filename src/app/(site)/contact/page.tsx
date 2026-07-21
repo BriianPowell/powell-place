@@ -1,26 +1,29 @@
 import type { Metadata } from 'next'
 import { ContactPage } from '@/components/content/ContactPage'
 import { site } from '@/data/site'
-import { socialImage } from '@/lib/seo'
+import { getOpenGraphMetadata, getTwitterMetadata } from '@/lib/seo'
+
+const description =
+  'Contact Brian Powell for software engineering, backend, cloud, CI/CD, and frontend architecture opportunities.'
+const socialDescription =
+  'Contact Brian Powell for software engineering and cloud engineering opportunities.'
+const title = `Contact ${site.name}`
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description:
-    'Contact Brian Powell for software engineering, backend, cloud, CI/CD, and frontend architecture opportunities.',
+  description,
   alternates: {
     canonical: '/contact',
   },
-  openGraph: {
-    title: `Contact ${site.name}`,
-    description:
-      'Contact Brian Powell for software engineering and cloud engineering opportunities.',
+  openGraph: getOpenGraphMetadata({
+    title,
+    description: socialDescription,
     url: '/contact',
-    images: [socialImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    images: [socialImage],
-  },
+  }),
+  twitter: getTwitterMetadata({
+    title,
+    description: socialDescription,
+  }),
 }
 
 export default function Contact() {

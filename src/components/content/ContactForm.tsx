@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { formatZodError, parseContactFormData } from '@/lib/contact/schema'
 import styles from './styles/contactForm.module.css'
 import { TurnstileWidget } from './TurnstileWidget'
+import { useContactDraft } from './useContactDraft'
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -20,6 +21,7 @@ function rememberContactMessageSent() {
 
 export function ContactForm() {
   const [state, setState] = useState<FormState>('idle')
+  const { draft, updateDraft } = useContactDraft()
   const [errorMessage, setErrorMessage] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const [turnstileResetKey, setTurnstileResetKey] = useState(0)
@@ -104,6 +106,8 @@ export function ContactForm() {
           minLength={2}
           maxLength={80}
           required
+          value={draft.fullname}
+          onChange={(event) => updateDraft('fullname', event.target.value)}
           disabled={state === 'submitting' || state === 'success'}
         />
         <input
@@ -116,6 +120,8 @@ export function ContactForm() {
           pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
           maxLength={254}
           required
+          value={draft.email}
+          onChange={(event) => updateDraft('email', event.target.value)}
           disabled={state === 'submitting' || state === 'success'}
         />
       </div>
@@ -126,6 +132,8 @@ export function ContactForm() {
         minLength={10}
         maxLength={2000}
         required
+        value={draft.message}
+        onChange={(event) => updateDraft('message', event.target.value)}
         disabled={state === 'submitting' || state === 'success'}
       />
       <TurnstileWidget

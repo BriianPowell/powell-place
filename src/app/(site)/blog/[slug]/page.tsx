@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { BlogPostPage } from '@/components/content/BlogPostPage'
 import { site } from '@/data/site'
 import { getBlogPost, getBlogPostSlugs } from '@/lib/blog'
-import { socialImage } from '@/lib/seo'
+import { getTwitterMetadata, socialImage } from '@/lib/seo'
 
 type BlogPostRouteProps = {
   params: Promise<{ slug: string }>
@@ -35,16 +35,18 @@ export async function generateMetadata({
       title: `${post.title} | ${site.name}`,
       description: post.description,
       url: `/blog/${post.slug}`,
+      siteName: site.name,
+      locale: 'en_US',
       type: 'article',
       publishedTime: post.date,
       authors: [site.name],
       tags: post.tags,
       images: [socialImage],
     },
-    twitter: {
-      card: 'summary_large_image',
-      images: [socialImage],
-    },
+    twitter: getTwitterMetadata({
+      title: `${post.title} | ${site.name}`,
+      description: post.description,
+    }),
   }
 }
 
