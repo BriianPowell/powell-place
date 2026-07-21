@@ -2,24 +2,77 @@
   margin-bottom: var(--space-xl);
 }
 
+.timeline h3 {
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--chrome-shadow);
+  box-shadow: 0 1px 0 var(--chrome-highlight);
+}
+
 .timelineList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .timelineItem {
   composes: win98InsetPanel from global;
-  padding: var(--space-md);
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-md) var(--space-md) var(--space-md)
+    calc(var(--space-md) + 8px);
+  background:
+    linear-gradient(90deg, var(--resume-accent) 0 8px, transparent 8px),
+    linear-gradient(90deg, var(--resume-wash), transparent 55%), #f8f8f8;
+}
+
+.experience {
+  --resume-accent: #000080;
+  --resume-wash: rgba(0, 0, 128, 0.08);
+}
+
+.education {
+  --resume-accent: #008080;
+  --resume-wash: rgba(0, 128, 128, 0.1);
+}
+
+.certificate {
+  --resume-accent: #806000;
+  --resume-wash: rgba(128, 96, 0, 0.12);
+}
+
+.itemHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
 }
 
 .timelineItem h4 {
-  margin-bottom: var(--space-xs);
+  margin: 0;
 }
 
 .timelineItem h4 a {
   color: var(--content-link);
   font-weight: 700;
+}
+
+.durationBadge {
+  flex: 0 0 auto;
+  padding: 3px 6px;
+  background: var(--chrome-face);
+  border: 1px solid;
+  border-color: var(--chrome-highlight) var(--chrome-shadow)
+    var(--chrome-shadow) var(--chrome-highlight);
+  color: var(--content-muted);
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .timelineBullets {
@@ -32,4 +85,11 @@
 
 .timelineBullets li {
   margin-bottom: var(--space-xs);
+}
+
+@media (max-width: 640px) {
+  .itemHeader {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
 }

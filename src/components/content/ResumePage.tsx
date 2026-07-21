@@ -5,9 +5,11 @@ import resumeStyles from './styles/resume.module.css'
 function TimelineSection({
   title,
   entries,
+  variant,
 }: {
   title: string
   entries: TimelineEntry[]
+  variant: 'experience' | 'education'
 }) {
   return (
     <section className={resumeStyles.timeline}>
@@ -16,11 +18,16 @@ function TimelineSection({
         {entries.map((entry) => (
           <li
             key={`${entry.organization}-${entry.duration}`}
-            className={resumeStyles.timelineItem}
+            className={`${resumeStyles.timelineItem} ${resumeStyles[variant]}`}
           >
-            <h4>{entry.organization}</h4>
+            <div className={resumeStyles.itemHeader}>
+              <h4>{entry.organization}</h4>
+              <span className={resumeStyles.durationBadge}>
+                {entry.duration}
+              </span>
+            </div>
             <p className={styles.timelineMeta}>
-              <strong>{entry.title}</strong> · {entry.duration}
+              <strong>{entry.title}</strong>
             </p>
             {entry.bullets.length > 0 && (
               <ul className={resumeStyles.timelineBullets}>
@@ -42,18 +49,32 @@ export function ResumePage() {
       <header className={styles.section}>
         <h2>Resume</h2>
       </header>
-      <TimelineSection title="Experience" entries={site.experience} />
-      <TimelineSection title="Education" entries={site.education} />
+      <TimelineSection
+        title="Experience"
+        entries={site.experience}
+        variant="experience"
+      />
+      <TimelineSection
+        title="Education"
+        entries={site.education}
+        variant="education"
+      />
       <section className={resumeStyles.timeline}>
         <h3>Certificates</h3>
         <ol className={resumeStyles.timelineList}>
           {site.certificates.map((cert) => (
-            <li key={cert.title} className={resumeStyles.timelineItem}>
-              <h4>
-                <a href={cert.link} target="_blank" rel="noreferrer">
-                  {cert.title}
-                </a>
-              </h4>
+            <li
+              key={cert.title}
+              className={`${resumeStyles.timelineItem} ${resumeStyles.certificate}`}
+            >
+              <div className={resumeStyles.itemHeader}>
+                <h4>
+                  <a href={cert.link} target="_blank" rel="noreferrer">
+                    {cert.title}
+                  </a>
+                </h4>
+                <span className={resumeStyles.durationBadge}>Active</span>
+              </div>
               <p className={styles.timelineMeta}>
                 <strong>{cert.organization}</strong>
               </p>

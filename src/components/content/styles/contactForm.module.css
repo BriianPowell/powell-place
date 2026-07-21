@@ -41,6 +41,20 @@
   outline-offset: -4px;
 }
 
+.input:disabled,
+.textarea:disabled {
+  background: var(--chrome-face);
+  color: var(--chrome-shadow);
+  cursor: not-allowed;
+  opacity: 1;
+  -webkit-text-fill-color: var(--chrome-shadow);
+}
+
+.input:disabled::placeholder,
+.textarea:disabled::placeholder {
+  color: var(--chrome-shadow);
+}
+
 .turnstileWrap {
   composes: win98InsetChromePanel from global;
   align-self: flex-start;

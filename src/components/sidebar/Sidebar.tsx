@@ -36,15 +36,6 @@ export function Sidebar({ embedded = false }: SidebarProps) {
           </a>
         </li>
         <li className={styles.contactItem}>
-          <p className={styles.contactLabel}>Phone</p>
-          <a
-            href={`tel:${site.phone.replace(/\./g, '')}`}
-            className={styles.contactValue}
-          >
-            {site.phone}
-          </a>
-        </li>
-        <li className={styles.contactItem}>
           <p className={styles.contactLabel}>Zodiac</p>
           <span className={styles.contactValue}>{site.sign}</span>
         </li>

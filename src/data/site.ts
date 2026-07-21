@@ -1,6 +1,7 @@
 export type Service = {
   title: string
   text: string
+  icon: string
 }
 
 export type TimelineEntry = {
@@ -28,7 +29,6 @@ export const site = {
   description:
     'Brian Powell is a software engineer in Huntington Beach, California focused on backend systems, cloud enablement, CI/CD, and frontend architecture.',
   email: 'ships-nucleus8o@icloud.com',
-  phone: '714.906.9211',
   sign: 'Scorpio',
   location: 'Huntington Beach, California',
   website: {
@@ -65,26 +65,32 @@ export const site = {
     {
       title: 'Application & Platform Engineering',
       text: 'Building end-to-end systems that connect product needs, platform capabilities, and reliable delivery.',
+      icon: '/icons/focus-platform.png',
     },
     {
       title: 'Kubernetes & Cloud Native',
       text: 'Working with containers, Kubernetes, and cloud infrastructure to run services cleanly and consistently.',
+      icon: '/icons/focus-cloud.png',
     },
     {
       title: 'Developer Experience',
       text: 'Creating automation, workflows, and internal tooling that make engineering teams more effective.',
+      icon: '/icons/focus-devex.png',
     },
     {
       title: 'Software Delivery',
       text: 'Improving CI/CD, infrastructure-as-code, and release patterns to reduce friction and technical debt.',
+      icon: '/icons/focus-delivery.png',
     },
     {
       title: 'Practical AI Workflows',
       text: 'Exploring AI-assisted engineering workflows that improve delivery, operations, and code quality.',
+      icon: '/icons/focus-ai.png',
     },
     {
       title: 'Resilient Architecture',
       text: 'Designing backend and distributed systems with reliability, security, and operability in mind.',
+      icon: '/icons/focus-resilience.png',
     },
   ] satisfies Service[],
   experience: [

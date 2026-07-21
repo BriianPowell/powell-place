@@ -21,7 +21,6 @@ export function getPersonJsonLd() {
     jobTitle: site.label,
     description: site.description,
     email: `mailto:${site.email}`,
-    telephone: site.phone,
     url: site.website.url,
     address: {
       '@type': 'PostalAddress',
