@@ -1,37 +1,49 @@
 {
-	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "powell-place",
-	"main": ".open-next/worker.js",
-	"compatibility_date": "2026-07-20",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
-	"routes": [
-		{
-			"pattern": "powell.place",
-			"zone_name": "powell.place",
-			"custom_domain": true,
-		},
-	],
-	"vars": {
-		"NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
-	},
-	"assets": {
-		"directory": ".open-next/assets",
-		"binding": "ASSETS",
-	},
-	"observability": {
-		"enabled": true,
-	},
-	"env": {
-		"preview": {
-			"name": "powell-place-preview",
-			"workers_dev": true,
-			"routes": [],
-			"vars": {
-				"NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
-			},
-		},
-	},
-	"workers_dev": true,
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "powell-place",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-07-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "powell.place",
+      "zone_name": "powell.place",
+      "custom_domain": true,
+    },
+  ],
+  "vars": {
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "enabled": true,
+  },
+  "env": {
+    "production": {
+      "name": "powell-place",
+      "workers_dev": true,
+      "routes": [
+        {
+          "pattern": "powell.place",
+          "zone_name": "powell.place",
+          "custom_domain": true,
+        },
+      ],
+      "vars": {
+        "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
+      },
+    },
+    "preview": {
+      "name": "powell-place-preview",
+      "workers_dev": true,
+      "routes": [],
+      "vars": {
+        "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
+      },
+    },
+  },
+  "workers_dev": true,
 }

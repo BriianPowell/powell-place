@@ -8,8 +8,6 @@ const faviconFrames = icons.joystick
 export function FaviconAnimator() {
   useEffect(() => {
     let frame = 0
-    const originalIcon =
-      document.querySelector<HTMLLinkElement>('link[rel="icon"]')?.href
     let iconLink = document.querySelector<HTMLLinkElement>('link[rel="icon"]')
 
     if (!iconLink) {
@@ -28,9 +26,7 @@ export function FaviconAnimator() {
 
     return () => {
       window.clearInterval(intervalId)
-      if (originalIcon) {
-        iconLink.href = originalIcon
-      }
+      iconLink.href = faviconFrames[0]
     }
   }, [])
 

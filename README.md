@@ -59,6 +59,10 @@ tags: cloud, ci/cd
 Write the post in Markdown.
 ```
 
+The app generates `src/content/blog/manifest.ts` from those Markdown files before
+`dev`, `build`, `preview`, and `deploy`. Run `npm run generate:blog` manually if
+you add or edit posts while a dev server is already running.
+
 ## Reusing the theme
 
 Import `src/theme/desktop.css` for design tokens (`--chrome-face`, `--font-win95`, etc.) in other self-hosted apps.

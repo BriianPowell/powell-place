@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: '/about',
   },
   icons: {
-    icon: icons.w95,
+    icon: icons.joystick[0],
   },
   robots: {
     index: true,
@@ -65,6 +65,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href={icons.joystick[0]} />
+        <link rel="shortcut icon" href={icons.joystick[0]} />
+      </head>
       <body>
         <FaviconAnimator />
         <script
