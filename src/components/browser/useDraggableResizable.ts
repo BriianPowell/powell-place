@@ -43,8 +43,16 @@ type ResizeSession = {
 
 function clampRect(rect: WindowRect, bounds: DOMRect): WindowRect {
   const { minWidth, minHeight } = WINDOW_DEFAULTS
-  const width = Math.min(bounds.width, Math.max(minWidth, rect.width))
-  const height = Math.min(bounds.height, Math.max(minHeight, rect.height))
+  const availableWidth = Math.max(0, bounds.width)
+  const availableHeight = Math.max(0, bounds.height)
+  const width = Math.min(
+    availableWidth,
+    Math.max(Math.min(minWidth, availableWidth), rect.width)
+  )
+  const height = Math.min(
+    availableHeight,
+    Math.max(Math.min(minHeight, availableHeight), rect.height)
+  )
   const maxX = Math.max(0, bounds.width - width)
   const maxY = Math.max(0, bounds.height - height)
 
@@ -57,8 +65,8 @@ function clampRect(rect: WindowRect, bounds: DOMRect): WindowRect {
 }
 
 function centeredRect(bounds: DOMRect): WindowRect {
-  const width = Math.min(WINDOW_DEFAULTS.width, bounds.width)
-  const height = Math.min(WINDOW_DEFAULTS.height, bounds.height)
+  const width = Math.min(WINDOW_DEFAULTS.width, Math.max(0, bounds.width))
+  const height = Math.min(WINDOW_DEFAULTS.height, Math.max(0, bounds.height))
 
   return clampRect(
     {

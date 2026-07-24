@@ -13,8 +13,8 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  min-width: 420px;
-  min-height: 360px;
+  min-width: clamp(0px, 100%, 420px);
+  min-height: clamp(0px, 100%, 360px);
   padding: 2px;
   box-shadow: 1px 1px 0 var(--chrome-dark);
   overflow: hidden;

@@ -6,7 +6,6 @@
 
 .hero {
   composes: win98InsetPanel from global;
-  max-width: 880px;
   margin-bottom: 0;
   padding: var(--space-lg);
   background:
@@ -40,7 +39,6 @@
 }
 
 .focusSection {
-  max-width: 880px;
   margin-bottom: 0;
 }
 

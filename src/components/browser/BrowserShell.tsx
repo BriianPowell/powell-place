@@ -52,6 +52,14 @@ export function BrowserShell({ children }: BrowserShellProps) {
     event.stopPropagation()
   }
 
+  const handleTitleBarDoubleClick = (event: MouseEvent<HTMLElement>) => {
+    if ((event.target as HTMLElement).closest('button, a')) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    toggleMaximize()
+  }
+
   return (
     <div
       ref={desktopRef}
@@ -80,6 +88,7 @@ export function BrowserShell({ children }: BrowserShellProps) {
         <div
           className={`${styles.titleBar} ${isBrowserActive ? '' : styles.titleBarInactive}`}
           onPointerDown={startDrag}
+          onDoubleClick={handleTitleBarDoubleClick}
           role="presentation"
         >
           <EarthIcon
