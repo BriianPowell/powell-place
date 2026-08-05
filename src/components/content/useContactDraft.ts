@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 const contactDraftKey = 'powell-place:contact-draft'
 
-export type ContactDraft = {
+type ContactDraft = {
   email: string
   fullname: string
   message: string

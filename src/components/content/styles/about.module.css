@@ -9,7 +9,7 @@
   margin-bottom: 0;
   padding: var(--space-lg);
   background:
-    linear-gradient(90deg, rgba(0, 0, 128, 0.08), transparent 45%),
+    linear-gradient(90deg, var(--content-wash-blue), transparent 45%),
     var(--content-panel);
 }
 
@@ -83,7 +83,8 @@
   padding: 10px 12px 10px calc(12px + 8px);
   background:
     linear-gradient(90deg, var(--service-accent) 0 8px, transparent 8px),
-    linear-gradient(90deg, var(--service-wash), transparent 55%), #f8f8f8;
+    linear-gradient(90deg, var(--service-wash), transparent 55%),
+    var(--content-card);
 }
 
 .serviceIconWrap {

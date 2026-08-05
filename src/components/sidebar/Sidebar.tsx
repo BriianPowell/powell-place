@@ -1,22 +1,14 @@
 import { site } from '@/data/site'
+import { icons } from '@/lib/icons'
 import styles from './styles/sidebar.module.css'
 
-type SidebarProps = {
-  /** Render inside the desktop profile panel (no side border). */
-  embedded?: boolean
-}
-
-export function Sidebar({ embedded = false }: SidebarProps) {
+export function Sidebar() {
   return (
-    <aside
-      className={
-        embedded ? `${styles.sidebar} ${styles.embedded}` : styles.sidebar
-      }
-    >
+    <aside className={`${styles.sidebar} ${styles.embedded}`}>
       <div className={styles.avatar} aria-hidden>
         <img
           className={styles.avatarImage}
-          src="/icons/avatar1_win98.png"
+          src={icons.avatar}
           alt=""
           draggable={false}
         />

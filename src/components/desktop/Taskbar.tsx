@@ -69,12 +69,7 @@ export function Taskbar() {
           title={isBrowserMinimized ? 'Restore portfolio' : 'Show portfolio'}
           onClick={focusBrowser}
         >
-          <EarthIcon
-            className={styles.appIconImg}
-            width={16}
-            height={16}
-            fallback={<span className={styles.appIconFallback} aria-hidden />}
-          />
+          <EarthIcon className={styles.appIconImg} width={16} height={16} />
           <span>{site.name}</span>
         </button>
       </div>

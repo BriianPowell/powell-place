@@ -1,8 +1,8 @@
-# Portfolio — Win95 Desktop
+# Portfolio — Win98 Desktop
 
 [![powell.place status](https://img.shields.io/website?url=https%3A%2F%2Fpowell.place&label=powell.place&logo=cloudflare&logoColor=white)](https://powell.place)
 
-A Next.js portfolio with a **Win95-style** desktop: draggable browser window, Start menu profile panel, and taskbar.
+A Next.js portfolio with a **Win98-style** desktop: draggable browser window, Start menu profile panel, and taskbar.
 
 ## Quick start
 

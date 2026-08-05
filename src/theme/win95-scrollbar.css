@@ -30,8 +30,8 @@
 }
 
 .win95Scrollbar::-webkit-scrollbar {
-  width: 16px;
-  height: 16px;
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
   background: var(--chrome-face);
 }
 
@@ -93,13 +93,13 @@
 
 .win95Scrollbar::-webkit-scrollbar-button {
   display: block;
-  width: 16px;
-  height: 16px;
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
   appearance: none;
   background-color: var(--chrome-face);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 8px 8px;
+  background-size: 9px 9px;
   border: 2px solid;
   border-color: var(--chrome-highlight) var(--chrome-dark) var(--chrome-dark)
     var(--chrome-highlight);

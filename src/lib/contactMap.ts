@@ -6,7 +6,7 @@ const VIEWPORT_HEIGHT = 320
 const VIEWPORT_CENTER_OFFSET_Y = -115
 const ZOOM = 13
 
-export type ContactMapTile = {
+type ContactMapTile = {
   key: string
   left: number
   top: number

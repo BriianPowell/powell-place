@@ -6,7 +6,7 @@
   width: 100%;
   padding: var(--space-lg);
   background:
-    linear-gradient(90deg, rgba(0, 0, 128, 0.08), transparent 45%),
+    linear-gradient(90deg, var(--content-wash-blue), transparent 45%),
     var(--content-panel);
 }
 

@@ -21,9 +21,12 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
+  color-scheme: light dark;
 }
 
 body {
+  /* Ask Midnight Lizard to leave the art-directed palette alone. */
+  --ml-ignore: true;
   font-family: var(--font-body);
   font-size: 0.8125rem;
   line-height: 1.45;
@@ -37,6 +40,15 @@ body {
   inset: 0;
   z-index: -1;
   background: var(--desktop-bg);
+  filter: var(--desktop-wallpaper-filter);
+}
+
+.desktop-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--desktop-wallpaper-overlay);
+  pointer-events: none;
 }
 
 .has-desktop-wallpaper .desktop-backdrop {

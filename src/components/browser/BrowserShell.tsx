@@ -10,7 +10,6 @@ import { getAddressForPath } from '@/lib/address'
 import { icons } from '@/lib/icons'
 import { activeTabFromPath, getBrowserTitle } from '@/lib/routing'
 import {
-  IconDocument,
   IconResizeGrip,
   IconWinMaximize,
   IconWinMinimize,
@@ -34,6 +33,7 @@ export function BrowserShell({ children }: BrowserShellProps) {
   const {
     desktopRef,
     isMaximized,
+    isPositionReady,
     rect,
     startDrag,
     startResize,
@@ -83,6 +83,7 @@ export function BrowserShell({ children }: BrowserShellProps) {
           top: rect.y,
           width: rect.width,
           height: rect.height,
+          visibility: isPositionReady ? 'visible' : 'hidden',
         }}
       >
         <div
@@ -96,7 +97,6 @@ export function BrowserShell({ children }: BrowserShellProps) {
             width={16}
             height={16}
             src={icons.html}
-            fallback={<IconDocument className={styles.titleIcon} />}
           />
           <span className={styles.titleText}>{getBrowserTitle(active)}</span>
           <div className={styles.windowControls}>

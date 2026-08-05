@@ -50,7 +50,6 @@
   background: #b8b8b8;
 }
 
-.startIcon,
 .startIconImg {
   width: 24px;
   height: 24px;
@@ -131,16 +130,6 @@
   image-rendering: crisp-edges;
 }
 
-.appIconFallback {
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: radial-gradient(circle at 30% 30%, #e8e8ff, var(--accent-violet));
-  border: 1px solid var(--chrome-shadow);
-}
-
 .tray {
   display: flex;
   align-items: center;
@@ -154,15 +143,11 @@
   background: var(--chrome-face);
 }
 
-.trayIcon,
 .trayIconImg {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
   display: block;
-}
-
-.trayIconImg {
   object-fit: contain;
   image-rendering: pixelated;
   image-rendering: crisp-edges;

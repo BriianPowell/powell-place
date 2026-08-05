@@ -9,14 +9,16 @@ import {
   useState,
 } from 'react'
 
-export const WINDOW_DEFAULTS = {
+const WINDOW_DEFAULTS = {
   width: 1040,
   height: 720,
   minWidth: 420,
   minHeight: 360,
 } as const
 
-export type WindowRect = {
+const CENTERED_RESTORE_INSET = 48
+
+type WindowRect = {
   x: number
   y: number
   width: number
@@ -65,8 +67,16 @@ function clampRect(rect: WindowRect, bounds: DOMRect): WindowRect {
 }
 
 function centeredRect(bounds: DOMRect): WindowRect {
-  const width = Math.min(WINDOW_DEFAULTS.width, Math.max(0, bounds.width))
-  const height = Math.min(WINDOW_DEFAULTS.height, Math.max(0, bounds.height))
+  const availableWidth =
+    bounds.width > WINDOW_DEFAULTS.minWidth + CENTERED_RESTORE_INSET * 2
+      ? bounds.width - CENTERED_RESTORE_INSET * 2
+      : bounds.width
+  const availableHeight =
+    bounds.height > WINDOW_DEFAULTS.minHeight + CENTERED_RESTORE_INSET * 2
+      ? bounds.height - CENTERED_RESTORE_INSET * 2
+      : bounds.height
+  const width = Math.min(WINDOW_DEFAULTS.width, Math.max(0, availableWidth))
+  const height = Math.min(WINDOW_DEFAULTS.height, Math.max(0, availableHeight))
 
   return clampRect(
     {
@@ -100,6 +110,7 @@ export function useDraggableResizable() {
   const desktopRef = useRef<HTMLDivElement>(null)
   const [rect, setRect] = useState<WindowRect>(HYDRATION_RECT)
   const [isMaximized, setIsMaximized] = useState(false)
+  const [isPositionReady, setIsPositionReady] = useState(false)
   const restoreRect = useRef<WindowRect | null>(null)
   const dragSession = useRef<DragSession | null>(null)
   const resizeSession = useRef<ResizeSession | null>(null)
@@ -113,6 +124,7 @@ export function useDraggableResizable() {
 
   useLayoutEffect(() => {
     setRect(centeredRect(getBounds()))
+    setIsPositionReady(true)
   }, [getBounds])
 
   useEffect(() => {
@@ -261,6 +273,7 @@ export function useDraggableResizable() {
   return {
     desktopRef,
     isMaximized,
+    isPositionReady,
     rect,
     startDrag,
     startResize,

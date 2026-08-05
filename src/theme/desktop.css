@@ -5,7 +5,10 @@
 :root {
   /* Desktop (outside the window) */
   --desktop-bg: #008080;
+  --desktop-wallpaper-filter: none;
+  --desktop-wallpaper-overlay: transparent;
   --taskbar-height: 38px;
+  --scrollbar-size: 25px;
 
   /* Win95 chrome */
   --chrome-face: #c0c0c0;
@@ -23,6 +26,10 @@
   --content-muted: #404040;
   --content-link: #000080;
   --content-link-hover: #0000ee;
+  --content-card: #f8f8f8;
+  --content-wash-blue: rgba(0, 0, 128, 0.08);
+  --content-wash-teal: rgba(0, 128, 128, 0.1);
+  --content-wash-gold: rgba(128, 96, 0, 0.12);
 
   /* Subtle accents (sparingly — title bar, links) */
   --accent-violet: #6b4c9a;
@@ -39,4 +46,15 @@
   --space-md: 1rem;
   --space-lg: 1.5rem;
   --space-xl: 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --desktop-bg: #06191f;
+    --desktop-wallpaper-filter: brightness(0.48) saturate(0.78);
+    --desktop-wallpaper-overlay: rgba(0, 0, 32, 0.34);
+
+    --content-panel: #bdbab2;
+    --content-card: #afaca4;
+  }
 }

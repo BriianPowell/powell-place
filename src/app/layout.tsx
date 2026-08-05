@@ -27,6 +27,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: icons.joystick[0],
+    shortcut: icons.joystick[0],
+  },
+  other: {
+    'darkreader-lock': 'darkreader-lock',
+    'color-scheme': 'light dark',
   },
   robots: {
     index: true,
@@ -61,10 +66,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href={icons.joystick[0]} />
-        <link rel="shortcut icon" href={icons.joystick[0]} />
-      </head>
       <body>
         <FaviconAnimator />
         <script

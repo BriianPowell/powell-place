@@ -1,6 +1,6 @@
 import type { ResendContactConfig } from './resend'
 
-export type ContactConfig = {
+type ContactConfig = {
   resend: ResendContactConfig
   turnstileSecretKey: string
 }

@@ -21,7 +21,7 @@ export function ProfilePanel() {
         <span className={styles.spineLabel}>{site.website.pretty}</span>
       </div>
       <div className={styles.menuBody}>
-        <Sidebar embedded />
+        <Sidebar />
       </div>
     </div>
   )

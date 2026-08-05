@@ -14,7 +14,7 @@ export const contactMessageSchema = z.object({
     .max(2000, 'Please keep your message under 2,000 characters.'),
 })
 
-export type ContactMessagePayload = z.infer<typeof contactMessageSchema>
+type ContactMessagePayload = z.infer<typeof contactMessageSchema>
 
 export function formatZodError(error: unknown): string {
   if (error instanceof z.ZodError) {

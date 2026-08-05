@@ -22,10 +22,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--content-muted);
   overflow: hidden;
 }
 
@@ -123,7 +119,6 @@
 .sidebar.embedded .avatar {
   width: 64px;
   height: 64px;
-  font-size: 1.25rem;
 }
 
 .sidebar.embedded .contactList {

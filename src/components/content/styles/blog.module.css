@@ -15,7 +15,8 @@
     calc(var(--space-md) + 8px);
   background:
     linear-gradient(90deg, #000080 0 8px, transparent 8px),
-    linear-gradient(90deg, rgba(0, 0, 128, 0.08), transparent 55%), #f8f8f8;
+    linear-gradient(90deg, var(--content-wash-blue), transparent 55%),
+    var(--content-card);
 }
 
 .blogCardHeader {
@@ -87,7 +88,8 @@
     calc(var(--space-lg) + 8px);
   background:
     linear-gradient(90deg, #008080 0 8px, transparent 8px),
-    linear-gradient(90deg, rgba(0, 128, 128, 0.1), transparent 55%), #f8f8f8;
+    linear-gradient(90deg, var(--content-wash-teal), transparent 55%),
+    var(--content-card);
 }
 
 .backLink {
@@ -98,10 +100,9 @@
 
 .markdownArticle {
   composes: win98InsetPanel from global;
-  max-width: 70ch;
   padding: var(--space-lg);
   background:
-    linear-gradient(90deg, rgba(128, 96, 0, 0.08), transparent 45%),
+    linear-gradient(90deg, var(--content-wash-gold), transparent 45%),
     var(--content-panel);
 }
 

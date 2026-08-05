@@ -21,8 +21,8 @@
 }
 
 .scrollbar {
-  width: 16px;
-  flex: 0 0 16px;
+  width: var(--scrollbar-size);
+  flex: 0 0 var(--scrollbar-size);
   display: flex;
   flex-direction: column;
   background: var(--chrome-face);
@@ -32,9 +32,9 @@
 .scrollButton {
   composes: win98Button from global;
   position: relative;
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+  flex: 0 0 var(--scrollbar-size);
   padding: 0;
 }
 
@@ -49,15 +49,15 @@
 }
 
 .scrollButtonUp::before {
-  border-right: 4px solid transparent;
-  border-bottom: 5px solid var(--chrome-dark);
-  border-left: 4px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 6px solid var(--chrome-dark);
+  border-left: 5px solid transparent;
 }
 
 .scrollButtonDown::before {
-  border-top: 5px solid var(--chrome-dark);
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
+  border-top: 6px solid var(--chrome-dark);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
 }
 
 .track {

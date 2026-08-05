@@ -1,4 +1,4 @@
-export type ContactEmailPayload = {
+type ContactEmailPayload = {
   email: string
   fullname: string
   message: string
@@ -10,7 +10,7 @@ export type ResendContactConfig = {
   toEmail: string
 }
 
-export type ContactEmailResult =
+type ContactEmailResult =
   | { ok: true }
   | {
       ok: false
