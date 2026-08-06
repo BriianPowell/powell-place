@@ -3,6 +3,8 @@
 import { useEffect } from 'react'
 import { desktopWallpapers } from '@/data/wallpapers'
 
+const WALLPAPER_REVEAL_TIMEOUT_MS = 4000
+
 function chooseWallpaperIndex() {
   const randomValue =
     typeof window.crypto?.getRandomValues === 'function'
@@ -16,25 +18,39 @@ export function DesktopWallpaper() {
   useEffect(() => {
     const root = document.documentElement
     const preloadLink = document.createElement('link')
-    const image = new Image()
     let currentIndex = chooseWallpaperIndex()
     let attempts = 0
 
+    const revealDesktop = () => {
+      root.classList.remove('desktop-wallpaper-loading')
+    }
+    const revealFallback = window.setTimeout(
+      revealDesktop,
+      WALLPAPER_REVEAL_TIMEOUT_MS
+    )
+
+    root.classList.add('desktop-wallpaper-loading')
     preloadLink.rel = 'preload'
     preloadLink.as = 'image'
     preloadLink.dataset.desktopWallpaper = 'true'
     document.head.appendChild(preloadLink)
 
-    image.onload = () => {
+    preloadLink.onload = () => {
       const wallpaper = desktopWallpapers[currentIndex]
 
+      window.clearTimeout(revealFallback)
       root.style.setProperty('--desktop-wallpaper', `url("${wallpaper}")`)
       root.classList.add('has-desktop-wallpaper')
+      revealDesktop()
     }
 
-    image.onerror = () => {
+    preloadLink.onerror = () => {
       attempts += 1
-      if (attempts >= desktopWallpapers.length) return
+      if (attempts >= desktopWallpapers.length) {
+        window.clearTimeout(revealFallback)
+        revealDesktop()
+        return
+      }
 
       currentIndex = (currentIndex + 1) % desktopWallpapers.length
       preloadWallpaper(desktopWallpapers[currentIndex])
@@ -42,16 +58,17 @@ export function DesktopWallpaper() {
 
     function preloadWallpaper(wallpaper: string) {
       preloadLink.href = wallpaper
-      image.src = wallpaper
     }
 
     preloadWallpaper(desktopWallpapers[currentIndex])
 
     return () => {
-      image.onload = null
-      image.onerror = null
+      window.clearTimeout(revealFallback)
+      preloadLink.onload = null
+      preloadLink.onerror = null
       preloadLink.remove()
       root.classList.remove('has-desktop-wallpaper')
+      root.classList.remove('desktop-wallpaper-loading')
       root.style.removeProperty('--desktop-wallpaper')
     }
   }, [])

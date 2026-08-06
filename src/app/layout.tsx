@@ -65,9 +65,27 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="desktop-wallpaper-loading">
       <body>
         <FaviconAnimator />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'window.setTimeout(function(){document.documentElement.classList.remove("desktop-wallpaper-loading")},4000)',
+          }}
+        />
+        <noscript>
+          <style>{`
+            html.desktop-wallpaper-loading body {
+              background: var(--desktop-bg);
+            }
+
+            html.desktop-wallpaper-loading .desktop-backdrop,
+            html.desktop-wallpaper-loading body > :not(script):not(style) {
+              visibility: visible;
+            }
+          `}</style>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
