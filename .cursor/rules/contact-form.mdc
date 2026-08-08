@@ -1,0 +1,14 @@
+---
+description: Contact form, Turnstile, and Resend conventions
+globs: src/app/api/contact/**/*.ts, src/lib/contact/**/*.ts, src/components/content/Contact*.tsx, src/components/content/TurnstileWidget.tsx
+alwaysApply: false
+---
+
+# Contact Form
+
+- Keep validation centralized in `src/lib/contact/schema.ts`; client and server behavior should agree with that schema.
+- Keep provider configuration in `src/lib/contact/config.ts`. Never hard-code secrets, recipient emails, API keys, or Turnstile secrets.
+- Preserve the server-side Turnstile verification flow before sending email.
+- Preserve Resend integration boundaries in `src/lib/contact/resend.ts`; route handlers should stay thin.
+- Return user-safe errors from the API. Log or expose only information that is safe for production.
+- When changing form fields, update the schema, client draft handling, API payload, and email payload together.

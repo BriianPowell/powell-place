@@ -37,6 +37,10 @@ function saveContactDraft(draft: ContactDraft) {
   window.localStorage.setItem(contactDraftKey, JSON.stringify(draft))
 }
 
+function removeContactDraft() {
+  window.localStorage.removeItem(contactDraftKey)
+}
+
 export function useContactDraft() {
   const [draft, setDraft] = useState<ContactDraft>(emptyContactDraft)
 
@@ -56,7 +60,13 @@ export function useContactDraft() {
     })
   }
 
+  const clearDraft = () => {
+    removeContactDraft()
+    setDraft(emptyContactDraft)
+  }
+
   return {
+    clearDraft,
     draft,
     updateDraft,
   }

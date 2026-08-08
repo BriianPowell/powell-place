@@ -2,7 +2,13 @@
 
 import type { FormEvent } from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import { formatZodError, parseContactFormData } from '@/lib/contact/schema'
+import {
+  CONTACT_EMAIL_MAX_LENGTH,
+  CONTACT_FULLNAME_MAX_LENGTH,
+  CONTACT_MESSAGE_MAX_LENGTH,
+  formatZodError,
+  parseContactFormData,
+} from '@/lib/contact/schema'
 import styles from './styles/contactForm.module.css'
 import { TurnstileWidget } from './TurnstileWidget'
 import { useContactDraft } from './useContactDraft'
@@ -10,9 +16,22 @@ import { useContactDraft } from './useContactDraft'
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
 const contactMessageSentKey = 'powell-place:contact-message-sent-at'
+const contactMessageSentTtlMs = 24 * 60 * 60 * 1000
 
 function hasSentContactMessage() {
-  return Boolean(window.localStorage.getItem(contactMessageSentKey))
+  const sentAt = window.localStorage.getItem(contactMessageSentKey)
+  if (!sentAt) return false
+
+  const sentAtTime = Date.parse(sentAt)
+  if (
+    Number.isNaN(sentAtTime) ||
+    Date.now() - sentAtTime > contactMessageSentTtlMs
+  ) {
+    window.localStorage.removeItem(contactMessageSentKey)
+    return false
+  }
+
+  return true
 }
 
 function rememberContactMessageSent() {
@@ -21,7 +40,7 @@ function rememberContactMessageSent() {
 
 export function ContactForm() {
   const [state, setState] = useState<FormState>('idle')
-  const { draft, updateDraft } = useContactDraft()
+  const { clearDraft, draft, updateDraft } = useContactDraft()
   const [errorMessage, setErrorMessage] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const [turnstileResetKey, setTurnstileResetKey] = useState(0)
@@ -84,6 +103,7 @@ export function ContactForm() {
       }
 
       setState('success')
+      clearDraft()
       rememberContactMessageSent()
     } catch (err) {
       setState('error')
@@ -104,7 +124,7 @@ export function ContactForm() {
           placeholder="Full Name"
           autoComplete="name"
           minLength={2}
-          maxLength={80}
+          maxLength={CONTACT_FULLNAME_MAX_LENGTH}
           required
           value={draft.fullname}
           onChange={(event) => updateDraft('fullname', event.target.value)}
@@ -118,7 +138,7 @@ export function ContactForm() {
           autoComplete="email"
           inputMode="email"
           pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}"
-          maxLength={254}
+          maxLength={CONTACT_EMAIL_MAX_LENGTH}
           required
           value={draft.email}
           onChange={(event) => updateDraft('email', event.target.value)}
@@ -130,7 +150,7 @@ export function ContactForm() {
         name="message"
         placeholder="Message"
         minLength={10}
-        maxLength={2000}
+        maxLength={CONTACT_MESSAGE_MAX_LENGTH}
         required
         value={draft.message}
         onChange={(event) => updateDraft('message', event.target.value)}

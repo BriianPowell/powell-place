@@ -1,0 +1,14 @@
+---
+description: Blog content and generated manifest conventions
+globs: src/content/blog/**/*.md, src/content/blog/manifest.ts, scripts/generate-blog-manifest.mjs, src/lib/blog.ts, src/components/content/Blog*.tsx, src/app/(site)/blog/**/*.tsx
+alwaysApply: false
+---
+
+# Blog Content
+
+- Blog posts live in `src/content/blog` as Markdown files. The filename becomes the URL slug.
+- Keep post frontmatter complete: `title`, `description`, `date`, and `tags`.
+- Treat `src/content/blog/manifest.ts` as generated output from `scripts/generate-blog-manifest.mjs`.
+- After adding, deleting, renaming, or editing blog Markdown frontmatter, regenerate the manifest before verification.
+- Keep Markdown rendering build-time and trusted. Do not wire arbitrary user-submitted HTML into `MarkdownArticle`.
+- Preserve SEO expectations: blog list/post metadata should use the post title, description, date, and tags consistently.

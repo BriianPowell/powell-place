@@ -11,7 +11,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
         <Link href="/blog" className={blogStyles.backLink}>
           &lt; Back to Blog
         </Link>
-        <h2>{post.title}</h2>
+        <h1>{post.title}</h1>
         <div className={blogStyles.postMeta}>
           <time className={blogStyles.metaBadge} dateTime={post.date}>
             {post.date}

@@ -1,17 +1,41 @@
 import { z } from 'zod'
 
+export const CONTACT_EMAIL_MAX_LENGTH = 254
+export const CONTACT_FULLNAME_MAX_LENGTH = 80
+export const CONTACT_MESSAGE_MAX_LENGTH = 2000
+
 export const contactMessageSchema = z.object({
-  email: z.string().trim().email('Please enter a valid email address.'),
+  email: z
+    .string()
+    .trim()
+    .email('Please enter a valid email address.')
+    .max(
+      CONTACT_EMAIL_MAX_LENGTH,
+      'Please keep your email under 254 characters.'
+    ),
   fullname: z
     .string()
     .trim()
     .min(2, 'Please enter your full name.')
-    .max(80, 'Please keep your name under 80 characters.'),
+    .max(
+      CONTACT_FULLNAME_MAX_LENGTH,
+      'Please keep your name under 80 characters.'
+    ),
   message: z
     .string()
     .trim()
     .min(10, 'Please enter a message with at least 10 characters.')
-    .max(2000, 'Please keep your message under 2,000 characters.'),
+    .max(
+      CONTACT_MESSAGE_MAX_LENGTH,
+      'Please keep your message under 2,000 characters.'
+    ),
+})
+
+export const contactRequestSchema = contactMessageSchema.extend({
+  turnstileToken: z
+    .string()
+    .trim()
+    .min(1, 'Please complete the anti-bot check before sending.'),
 })
 
 type ContactMessagePayload = z.infer<typeof contactMessageSchema>
