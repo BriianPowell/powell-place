@@ -1,0 +1,15 @@
+---
+description: Win98 desktop UI, theme, and asset conventions
+globs: src/components/**/*.tsx, src/theme/**/*.css, src/app/globals.css, public/icons/**, public/wallpapers/**
+alwaysApply: false
+---
+
+# Win98 UI And Theme
+
+- Preserve the Win98 desktop feel: gray chrome, beveled controls, pixel-aligned icons, and compact system UI spacing.
+- Prefer CSS custom properties from `src/theme/desktop.css` over hard-coded colors when styling themed surfaces.
+- Keep Night Desktop subtle. The gray chrome should stay recognizable; prefer adjusting wallpaper, panel, and content surface colors before changing control colors.
+- Use static image assets for browser and desktop icons when they already exist. Avoid reintroducing inline SVG fallbacks unless there is a clear need.
+- Add new icon and wallpaper paths through `src/lib/icons.ts` or `src/data/wallpapers.ts` instead of scattering literal asset paths.
+- When changing wallpapers, compare generated asset sizes and keep the smaller format for each image rather than converting everything blindly.
+- Be careful with initial-loading behavior: the desktop should not flash unpositioned UI or remain hidden indefinitely if wallpaper loading fails.

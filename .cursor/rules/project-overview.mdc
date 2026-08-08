@@ -1,0 +1,13 @@
+---
+description: Core project context and engineering expectations
+alwaysApply: true
+---
+
+# Project Overview
+
+- This is a Next.js portfolio with a Win98-inspired desktop, draggable browser shell, taskbar, profile panel, blog, and contact form.
+- Prefer the existing structure: shared data in `src/data`, reusable helpers in `src/lib`, route UI in `src/components`, global theme tokens in `src/theme`.
+- Keep edits scoped and avoid broad refactors unless the user asks for them.
+- Use existing helpers and registries before introducing new ones, especially `src/lib/icons.ts` for icon paths and `src/data/wallpapers.ts` for wallpaper assets.
+- Preserve accessibility affordances on interactive UI: buttons should remain buttons, decorative images should stay `alt=""` and `aria-hidden` when appropriate.
+- For verification, prefer `npm run check` when available; otherwise use targeted diagnostics and focused runtime reasoning.
