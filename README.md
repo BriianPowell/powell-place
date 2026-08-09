@@ -43,6 +43,10 @@ Without those values, the form shows an error on submit.
 `wrangler.jsonc` `vars`. Keep `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY`
 server-only in local `.env.local` or Cloudflare secrets.
 
+The contact form saves an in-progress draft in the visitor's browser for up to
+7 days and stores a 24-hour "message sent" flag after a successful submission.
+If browser storage is unavailable, the form still works without draft recovery.
+
 ## Blog posts
 
 Write posts as Markdown files in `src/content/blog`. The file name becomes the URL slug:

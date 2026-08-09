@@ -3,11 +3,17 @@
 import { useEffect, useState } from 'react'
 
 const contactDraftKey = 'powell-place:contact-draft'
+const contactDraftTtlMs = 7 * 24 * 60 * 60 * 1000
 
 type ContactDraft = {
   email: string
   fullname: string
   message: string
+}
+
+type StoredContactDraft = {
+  draft?: Partial<ContactDraft>
+  savedAt?: string
 }
 
 const emptyContactDraft: ContactDraft = {
@@ -17,11 +23,27 @@ const emptyContactDraft: ContactDraft = {
 }
 
 function readContactDraft(): ContactDraft {
-  const rawDraft = window.localStorage.getItem(contactDraftKey)
+  const rawDraft = readStoredContactDraft()
   if (!rawDraft) return emptyContactDraft
 
   try {
-    const draft = JSON.parse(rawDraft) as Partial<ContactDraft>
+    const parsedDraft = JSON.parse(rawDraft) as Partial<
+      ContactDraft & StoredContactDraft
+    >
+    const savedAt =
+      typeof parsedDraft.savedAt === 'string'
+        ? Date.parse(parsedDraft.savedAt)
+        : null
+
+    if (
+      savedAt !== null &&
+      (Number.isNaN(savedAt) || Date.now() - savedAt > contactDraftTtlMs)
+    ) {
+      removeContactDraft()
+      return emptyContactDraft
+    }
+
+    const draft = parsedDraft.draft ?? parsedDraft
 
     return {
       email: typeof draft.email === 'string' ? draft.email : '',
@@ -33,12 +55,34 @@ function readContactDraft(): ContactDraft {
   }
 }
 
+function readStoredContactDraft() {
+  try {
+    return window.localStorage.getItem(contactDraftKey)
+  } catch {
+    return null
+  }
+}
+
 function saveContactDraft(draft: ContactDraft) {
-  window.localStorage.setItem(contactDraftKey, JSON.stringify(draft))
+  try {
+    window.localStorage.setItem(
+      contactDraftKey,
+      JSON.stringify({
+        draft,
+        savedAt: new Date().toISOString(),
+      })
+    )
+  } catch {
+    // Browsers can disable storage in private or hardened modes.
+  }
 }
 
 function removeContactDraft() {
-  window.localStorage.removeItem(contactDraftKey)
+  try {
+    window.localStorage.removeItem(contactDraftKey)
+  } catch {
+    // Browsers can disable storage in private or hardened modes.
+  }
 }
 
 export function useContactDraft() {

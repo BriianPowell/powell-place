@@ -19,7 +19,14 @@ const contactMessageSentKey = 'powell-place:contact-message-sent-at'
 const contactMessageSentTtlMs = 24 * 60 * 60 * 1000
 
 function hasSentContactMessage() {
-  const sentAt = window.localStorage.getItem(contactMessageSentKey)
+  let sentAt: string | null
+
+  try {
+    sentAt = window.localStorage.getItem(contactMessageSentKey)
+  } catch {
+    return false
+  }
+
   if (!sentAt) return false
 
   const sentAtTime = Date.parse(sentAt)
@@ -27,7 +34,11 @@ function hasSentContactMessage() {
     Number.isNaN(sentAtTime) ||
     Date.now() - sentAtTime > contactMessageSentTtlMs
   ) {
-    window.localStorage.removeItem(contactMessageSentKey)
+    try {
+      window.localStorage.removeItem(contactMessageSentKey)
+    } catch {
+      // Browsers can disable storage in private or hardened modes.
+    }
     return false
   }
 
@@ -35,7 +46,11 @@ function hasSentContactMessage() {
 }
 
 function rememberContactMessageSent() {
-  window.localStorage.setItem(contactMessageSentKey, new Date().toISOString())
+  try {
+    window.localStorage.setItem(contactMessageSentKey, new Date().toISOString())
+  } catch {
+    // Browsers can disable storage in private or hardened modes.
+  }
 }
 
 export function ContactForm() {
