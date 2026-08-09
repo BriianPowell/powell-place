@@ -1,8 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const getContactConfig = vi.fn()
-const sendContactEmail = vi.fn()
-const verifyTurnstileToken = vi.fn()
+const { getContactConfig, sendContactEmail, verifyTurnstileToken } = vi.hoisted(
+  () => ({
+    getContactConfig: vi.fn(),
+    sendContactEmail: vi.fn(),
+    verifyTurnstileToken: vi.fn(),
+  })
+)
 
 vi.mock('@/lib/contact/config', () => ({
   getContactConfig,
@@ -99,6 +103,33 @@ describe('POST /api/contact', () => {
     expect(verifyTurnstileToken).not.toHaveBeenCalled()
   })
 
+  it('rejects oversized request bodies after reading when length is missing', async () => {
+    const response = await POST(
+      createContactRequest({
+        body: 'x'.repeat(9 * 1024),
+      })
+    )
+
+    expect(response.status).toBe(413)
+    expect(await readJson(response)).toEqual({
+      error: 'Contact request is too large',
+    })
+    expect(verifyTurnstileToken).not.toHaveBeenCalled()
+  })
+
+  it('returns unavailable when contact services are not configured', async () => {
+    getContactConfig.mockReturnValue(null)
+
+    const response = await POST(createContactRequest())
+
+    expect(response.status).toBe(503)
+    expect(await readJson(response)).toEqual({
+      error: 'Contact form is not configured',
+    })
+    expect(verifyTurnstileToken).not.toHaveBeenCalled()
+    expect(sendContactEmail).not.toHaveBeenCalled()
+  })
+
   it('rejects invalid request bodies', async () => {
     const response = await POST(createContactRequest({ body: '{not json' }))
 
@@ -139,6 +170,29 @@ describe('POST /api/contact', () => {
     expect(sendContactEmail).not.toHaveBeenCalled()
   })
 
+  it('rate limits repeated contact requests from the same client', async () => {
+    const repeatedClientHeaders = {
+      'cf-connecting-ip': '203.0.113.10',
+    }
+
+    for (let requestIndex = 0; requestIndex < 3; requestIndex += 1) {
+      const response = await POST(
+        createContactRequest({ headers: repeatedClientHeaders })
+      )
+
+      expect(response.status).toBe(200)
+    }
+
+    const response = await POST(
+      createContactRequest({ headers: repeatedClientHeaders })
+    )
+
+    expect(response.status).toBe(429)
+    expect(await readJson(response)).toEqual({
+      error: 'Too many messages. Please try again later.',
+    })
+  })
+
   it('sends email after validation and Turnstile verification', async () => {
     const response = await POST(createContactRequest())
 
@@ -157,5 +211,20 @@ describe('POST /api/contact', () => {
         message: 'This is a test contact message.',
       }
     )
+  })
+
+  it('returns a temporary failure when email delivery fails', async () => {
+    sendContactEmail.mockResolvedValue({
+      ok: false,
+      error: 'provider unavailable',
+      status: 503,
+    })
+
+    const response = await POST(createContactRequest())
+
+    expect(response.status).toBe(502)
+    expect(await readJson(response)).toEqual({
+      error: 'Unable to send message right now. Please try again later.',
+    })
   })
 })

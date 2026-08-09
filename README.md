@@ -106,7 +106,7 @@ Import `src/theme/desktop.css` for design tokens (`--chrome-face`, `--font-win95
 npm run lint              # ESLint — check
 npm run lint:fix          # ESLint with auto-fix
 npm run typecheck         # TypeScript — check
-npm run test              # Node test runner
+npm run test              # Vitest test suite
 npm run format            # Prettier — write
 npm run format:check      # Prettier — check only
 npm run check             # manifest + typecheck + tests + lint + format:check
