@@ -39,6 +39,10 @@ TURNSTILE_SECRET_KEY=...
 
 Without those values, the form shows an error on submit.
 
+`NEXT_PUBLIC_TURNSTILE_SITE_KEY` is intentionally public and can live in
+`wrangler.jsonc` `vars`. Keep `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY`
+server-only in local `.env.local` or Cloudflare secrets.
+
 ## Blog posts
 
 Write posts as Markdown files in `src/content/blog`. The file name becomes the URL slug:
@@ -118,15 +122,20 @@ npm run deploy           # build and deploy the production env
 npm run deploy:preview   # build and deploy the preview env
 ```
 
-Set these variables in Cloudflare Workers build/runtime settings:
+Set these variables in Cloudflare Workers build/runtime settings. Use placeholders
+from `.env.example` locally; do not commit real secret values.
 
 ```bash
 RESEND_API_KEY=...
 RESEND_FROM_EMAIL="Portfolio <contact@mail.powell.place>"
-CONTACT_TO_EMAIL=ships-nucleus8o@icloud.com
+CONTACT_TO_EMAIL=you@example.com
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=...
 TURNSTILE_SECRET_KEY=...
 ```
+
+In production, store secret values (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`) as
+Cloudflare secrets. Non-secret public values such as
+`NEXT_PUBLIC_TURNSTILE_SITE_KEY` may be configured as Wrangler vars.
 
 `wrangler.jsonc` enables `nodejs_compat`, serves OpenNext assets from
 `.open-next/assets`, and keeps Workers Logs enabled with full sampling for this
