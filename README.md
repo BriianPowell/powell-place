@@ -126,6 +126,14 @@ npm run deploy           # build and deploy the production env
 npm run deploy:preview   # build and deploy the preview env
 ```
 
+Cloudflare Workers Builds should use:
+
+- Build command: `npm run generate:blog && npx opennextjs-cloudflare build`
+- Deploy command: `npx opennextjs-cloudflare deploy --env production`
+
+That keeps the dashboard deploy pointed at the `production` Wrangler
+environment instead of the top-level fallback environment.
+
 Set these variables in Cloudflare Workers build/runtime settings. Use placeholders
 from `.env.example` locally; do not commit real secret values.
 
