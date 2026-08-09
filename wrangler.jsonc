@@ -20,11 +20,12 @@
   },
   "observability": {
     "enabled": true,
+    "head_sampling_rate": 1,
   },
   "env": {
     "production": {
       "name": "powell-place",
-      "workers_dev": true,
+      "workers_dev": false,
       "routes": [
         {
           "pattern": "powell.place",
@@ -35,6 +36,10 @@
       "vars": {
         "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
       },
+      "observability": {
+        "enabled": true,
+        "head_sampling_rate": 1,
+      },
     },
     "preview": {
       "name": "powell-place-preview",
@@ -43,7 +48,11 @@
       "vars": {
         "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAAMemH6eVDm6PU0F",
       },
+      "observability": {
+        "enabled": true,
+        "head_sampling_rate": 1,
+      },
     },
   },
-  "workers_dev": true,
+  "workers_dev": false,
 }

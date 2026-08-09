@@ -97,11 +97,11 @@ Import `src/theme/desktop.css` for design tokens (`--chrome-face`, `--font-win95
 ```bash
 npm run lint              # ESLint — check
 npm run lint:fix          # ESLint with auto-fix
-npm run lint:eslint       # ESLint directly (all .js/.ts/.tsx)
-npm run lint:eslint:fix   # ESLint direct with auto-fix
+npm run typecheck         # TypeScript — check
+npm run test              # Node test runner
 npm run format            # Prettier — write
 npm run format:check      # Prettier — check only
-npm run check             # lint + format:check (CI-friendly)
+npm run check             # manifest + typecheck + tests + lint + format:check
 ```
 
 After `npm install`, **Husky** runs a **pre-commit** hook via **lint-staged**: staged `*.{js,ts,tsx}` files get `eslint --fix` and Prettier; staged `*.{css,json,md}` get Prettier only.
@@ -128,4 +128,15 @@ NEXT_PUBLIC_TURNSTILE_SITE_KEY=...
 TURNSTILE_SECRET_KEY=...
 ```
 
-`wrangler.jsonc` enables `nodejs_compat` and serves OpenNext assets from `.open-next/assets`.
+`wrangler.jsonc` enables `nodejs_compat`, serves OpenNext assets from
+`.open-next/assets`, and keeps Workers Logs enabled with full sampling for this
+low-traffic site.
+
+Production deploys to the `powell.place` custom domain with `workers_dev`
+disabled. The preview environment keeps `workers_dev` enabled for preview-only
+deployments.
+
+Cloudflare WAF rate limiting protects `POST /api/contact` at the edge. The
+current zone entitlement supports a 10-second sampling period and mitigation
+timeout, so the deployed edge rule blocks bursts above 3 requests per 10 seconds;
+the app-level limiter remains as a longer-window backup.
