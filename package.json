@@ -12,7 +12,8 @@
     "deploy:preview": "npm run generate:blog && opennextjs-cloudflare build && opennextjs-cloudflare deploy --env preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
-    "test": "node --test scripts/*.test.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{js,ts,tsx}\" --fix",
@@ -42,20 +43,25 @@
     "postcss": "^8.5.10"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
+    "@vitejs/plugin-react": "^6.0.5",
     "eslint": "^9.16.0",
     "eslint-config-next": "^15.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-import": "^2.31.0",
     "husky": "^9.1.7",
+    "jsdom": "^30.0.1",
     "lint-staged": "^15.4.3",
     "prettier": "^3.4.2",
     "typescript": "^5.7.0",
+    "vitest": "^4.1.10",
     "wrangler": "^4.112.0"
   }
 }

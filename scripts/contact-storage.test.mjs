@@ -1,9 +1,10 @@
-import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { test } from 'node:test'
+import path from 'node:path'
 
-async function readProjectFile(path) {
-  return readFile(new URL(`../${path}`, import.meta.url), 'utf8')
+import { expect, test } from 'vitest'
+
+async function readProjectFile(relativePath) {
+  return readFile(path.join(process.cwd(), relativePath), 'utf8')
 }
 
 test('contact drafts are timestamped and expire', async () => {
@@ -11,9 +12,9 @@ test('contact drafts are timestamped and expire', async () => {
     'src/components/content/useContactDraft.ts'
   )
 
-  assert.match(draftHook, /contactDraftTtlMs/)
-  assert.match(draftHook, /savedAt/)
-  assert.match(draftHook, /Date\.now\(\) - savedAt > contactDraftTtlMs/)
+  expect(draftHook).toMatch(/contactDraftTtlMs/)
+  expect(draftHook).toMatch(/savedAt/)
+  expect(draftHook).toMatch(/Date\.now\(\) - savedAt > contactDraftTtlMs/)
 })
 
 test('contact localStorage access tolerates storage failures', async () => {
@@ -24,8 +25,8 @@ test('contact localStorage access tolerates storage failures', async () => {
     'src/components/content/ContactForm.tsx'
   )
 
-  assert.match(draftHook, /readStoredContactDraft/)
-  assert.match(draftHook, /catch \{\n    return null/)
-  assert.match(contactForm, /catch \{\n    return false/)
-  assert.match(contactForm, /Browsers can disable storage/)
+  expect(draftHook).toMatch(/readStoredContactDraft/)
+  expect(draftHook).toMatch(/catch \{\n    return null/)
+  expect(contactForm).toMatch(/catch \{\n    return false/)
+  expect(contactForm).toMatch(/Browsers can disable storage/)
 })

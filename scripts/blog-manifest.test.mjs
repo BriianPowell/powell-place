@@ -1,8 +1,8 @@
-import assert from 'node:assert/strict'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
-import { test } from 'node:test'
+
+import { expect, test } from 'vitest'
 
 import {
   buildManifest,
@@ -11,21 +11,23 @@ import {
 } from './generate-blog-manifest.mjs'
 
 test('blog dates must be real YYYY-MM-DD values', () => {
-  assert.equal(requireDateField({ date: '2026-08-08' }, 'valid-post'), '2026-08-08')
-  assert.throws(() => requireDateField({ date: '2026-02-30' }, 'bad-post'))
-  assert.throws(() => requireDateField({ date: '08/08/2026' }, 'bad-post'))
+  expect(requireDateField({ date: '2026-08-08' }, 'valid-post')).toBe(
+    '2026-08-08'
+  )
+  expect(() => requireDateField({ date: '2026-02-30' }, 'bad-post')).toThrow()
+  expect(() => requireDateField({ date: '08/08/2026' }, 'bad-post')).toThrow()
 })
 
 test('blog tags are normalized from arrays and comma-separated strings', () => {
-  assert.deepEqual(requireTagsField({ tags: [' cloud ', 'security'] }, 'post'), [
+  expect(requireTagsField({ tags: [' cloud ', 'security'] }, 'post')).toEqual([
     'cloud',
     'security',
   ])
-  assert.deepEqual(requireTagsField({ tags: 'cloud, security' }, 'post'), [
+  expect(requireTagsField({ tags: 'cloud, security' }, 'post')).toEqual([
     'cloud',
     'security',
   ])
-  assert.throws(() => requireTagsField({ tags: [] }, 'bad-post'))
+  expect(() => requireTagsField({ tags: [] }, 'bad-post')).toThrow()
 })
 
 test('blog manifest generation validates slugs and frontmatter', async () => {
@@ -50,9 +52,9 @@ test('blog manifest generation validates slugs and frontmatter', async () => {
 
     const manifest = buildManifest(blogDir)
 
-    assert.match(manifest, /hardening-notes/)
-    assert.match(manifest, /Hardening Notes/)
-    assert.match(manifest, /Keep the boundary small/)
+    expect(manifest).toMatch(/hardening-notes/)
+    expect(manifest).toMatch(/Hardening Notes/)
+    expect(manifest).toMatch(/Keep the boundary small/)
   } finally {
     await rm(blogDir, { force: true, recursive: true })
   }
