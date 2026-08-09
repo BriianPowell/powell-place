@@ -7,6 +7,7 @@ import { verifyTurnstileToken } from '@/lib/contact/turnstile'
 const CONTACT_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
 const CONTACT_RATE_LIMIT_MAX_REQUESTS = 3
 const CONTACT_RATE_LIMIT_MAX_BUCKETS = 1000
+const CONTACT_REQUEST_BODY_MAX_CHARS = 8 * 1024
 
 type ContactRateLimitBucket = {
   count: number
@@ -66,6 +67,22 @@ function isContactRateLimited(request: Request) {
   return false
 }
 
+function hasJsonContentType(request: Request) {
+  const contentType = request.headers.get('content-type')
+  return contentType?.toLowerCase().includes('application/json') ?? false
+}
+
+function hasTooLargeContentLength(request: Request) {
+  const contentLength = request.headers.get('content-length')
+  if (!contentLength) return false
+
+  const parsedContentLength = Number.parseInt(contentLength, 10)
+  return (
+    Number.isFinite(parsedContentLength) &&
+    parsedContentLength > CONTACT_REQUEST_BODY_MAX_CHARS
+  )
+}
+
 export async function POST(request: Request) {
   const config = getContactConfig()
 
@@ -83,10 +100,32 @@ export async function POST(request: Request) {
     )
   }
 
+  if (!hasJsonContentType(request)) {
+    return NextResponse.json(
+      { error: 'Contact requests must be sent as JSON' },
+      { status: 415 }
+    )
+  }
+
+  if (hasTooLargeContentLength(request)) {
+    return NextResponse.json(
+      { error: 'Contact request is too large' },
+      { status: 413 }
+    )
+  }
+
   let body: unknown
 
   try {
-    body = await request.json()
+    const bodyText = await request.text()
+    if (bodyText.length > CONTACT_REQUEST_BODY_MAX_CHARS) {
+      return NextResponse.json(
+        { error: 'Contact request is too large' },
+        { status: 413 }
+      )
+    }
+
+    body = JSON.parse(bodyText)
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }

@@ -4,6 +4,13 @@ export const CONTACT_EMAIL_MAX_LENGTH = 254
 export const CONTACT_FULLNAME_MAX_LENGTH = 80
 export const CONTACT_MESSAGE_MAX_LENGTH = 2000
 
+function hasControlCharacter(value: string) {
+  return Array.from(value).some((char) => {
+    const charCode = char.charCodeAt(0)
+    return charCode <= 31 || charCode === 127
+  })
+}
+
 export const contactMessageSchema = z.object({
   email: z
     .string()
@@ -17,6 +24,10 @@ export const contactMessageSchema = z.object({
     .string()
     .trim()
     .min(2, 'Please enter your full name.')
+    .refine(
+      (value) => !hasControlCharacter(value),
+      'Please remove unsupported characters from your name.'
+    )
     .max(
       CONTACT_FULLNAME_MAX_LENGTH,
       'Please keep your name under 80 characters.'

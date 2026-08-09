@@ -12,6 +12,7 @@
     "deploy:preview": "npm run generate:blog && opennextjs-cloudflare build && opennextjs-cloudflare deploy --env preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
+    "test:contact": "node --test scripts/contact-hardening.test.mjs",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "lint:eslint": "eslint \"**/*.{js,ts,tsx}\"",
