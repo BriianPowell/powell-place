@@ -6,7 +6,7 @@ import {
   writeFileSync,
 } from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import matter from 'gray-matter'
 import { remark } from 'remark'
@@ -21,7 +21,7 @@ const blogDir = path.join(projectRoot, 'src/content/blog')
 const manifestPath = path.join(blogDir, 'manifest.ts')
 const shouldCheckManifest = process.argv.includes('--check')
 
-function requireStringField(frontmatter, fieldName, slug) {
+export function requireStringField(frontmatter, fieldName, slug) {
   const value = frontmatter[fieldName]
 
   if (typeof value !== 'string' || !value.trim()) {
@@ -33,7 +33,7 @@ function requireStringField(frontmatter, fieldName, slug) {
   return value.trim()
 }
 
-function requireDateField(frontmatter, slug) {
+export function requireDateField(frontmatter, slug) {
   const value = frontmatter.date
   const date =
     value instanceof Date && !Number.isNaN(value.getTime())
@@ -59,7 +59,7 @@ function requireDateField(frontmatter, slug) {
   return date
 }
 
-function requireTagsField(frontmatter, slug) {
+export function requireTagsField(frontmatter, slug) {
   const tags = frontmatter.tags
   let parsedTags = []
 
@@ -87,7 +87,7 @@ function requireTagsField(frontmatter, slug) {
   return parsedTags
 }
 
-function parsePost(fileName) {
+export function parsePost(fileName, sourceDir = blogDir) {
   const slug = fileName.replace(/\.md$/, '')
 
   if (!SLUG_PATTERN.test(slug)) {
@@ -96,7 +96,7 @@ function parsePost(fileName) {
     )
   }
 
-  const source = readFileSync(path.join(blogDir, fileName), 'utf8')
+  const source = readFileSync(path.join(sourceDir, fileName), 'utf8')
   const { content, data } = matter(source)
   const contentHtml = remark().use(html).processSync(content).toString()
 
@@ -110,14 +110,14 @@ function parsePost(fileName) {
   }
 }
 
-function buildManifest() {
-  mkdirSync(blogDir, { recursive: true })
+export function buildManifest(sourceDir = blogDir) {
+  mkdirSync(sourceDir, { recursive: true })
 
-  const posts = existsSync(blogDir)
-    ? readdirSync(blogDir)
+  const posts = existsSync(sourceDir)
+    ? readdirSync(sourceDir)
         .filter((fileName) => fileName.endsWith('.md'))
         .sort()
-        .map(parsePost)
+        .map((fileName) => parsePost(fileName, sourceDir))
     : []
   const seenSlugs = new Set()
 
@@ -152,17 +152,26 @@ function buildManifest() {
   ].join('\n')
 }
 
-const manifest = buildManifest()
-const previousManifest = existsSync(manifestPath)
-  ? readFileSync(manifestPath, 'utf8')
-  : null
+export function writeManifest({ check = shouldCheckManifest } = {}) {
+  const manifest = buildManifest()
+  const previousManifest = existsSync(manifestPath)
+    ? readFileSync(manifestPath, 'utf8')
+    : null
 
-if (previousManifest !== manifest) {
-  if (shouldCheckManifest) {
-    throw new Error(
-      'Blog manifest is out of date. Run npm run generate:blog and commit the result.'
-    )
+  if (previousManifest !== manifest) {
+    if (check) {
+      throw new Error(
+        'Blog manifest is out of date. Run npm run generate:blog and commit the result.'
+      )
+    }
+
+    writeFileSync(manifestPath, manifest)
   }
+}
 
-  writeFileSync(manifestPath, manifest)
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  writeManifest()
 }
